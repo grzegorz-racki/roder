@@ -2,25 +2,445 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RODER - dobry adres</title>
-<link rel="stylesheet" href="style.css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- SEO -->
+<title>RODER | Nowoczesne budownictwo jednorodzinne Szczecin</title>
+<meta name="description" content="RODER – nowoczesny deweloper ze Szczecina. Innowacyjne domy jednorodzinne w najlepszych lokalizacjach. Wysoki standard, bezpieczeństwo i elastyczność.">
+
+<!-- Security -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' https://cdn.jsdelivr.net; font-src https://cdnjs.cloudflare.com;">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome (tylko free solid) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+/* =================================================
+GLOBAL RESET + TYPOGRAFIA
+================================================= */
+
+:root{
+    --brand-color:#1A2F50;
+    --text-dark:#111;
+    --text-light:#6c757d;
+    --bg-light:#f8f9fa;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:#fff;
+    color:var(--text-dark);
+    scroll-behavior:smooth;
+    line-height:1.6;
+}
+
+section{
+    padding:100px 0;
+}
+
+h1,h2,h3{
+    font-weight:600;
+    letter-spacing:-0.5px;
+}
+
+/* =================================================
+NAVIGATION
+================================================= */
+
+.navbar{
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(12px);
+}
+
+.navbar-brand img{
+    height:34px;
+}
+
+/* =================================================
+HERO / START
+================================================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+}
+
+.brand-symbol{
+    max-width:200px;      /* logo trochę mniejsze */
+    margin-bottom:20px;
+}
+
+.brand-name{
+    font-size:4.8rem;     /* większy */
+    font-weight:800;      /* grubszy */
+    letter-spacing:6px;
+    color:var(--brand-color);
+    line-height:1;
+}
+
+.brand-tagline{
+    font-size:2.1rem;     /* ciut większy */
+    font-weight:600;
+    color:var(--brand-color);
+    margin-top:0px;
+}
+
+.hero h1{
+    margin-top:60px;
+    font-size:2.1rem;
+    font-weight:600;
+    color:var(--text-dark);
+}
+
+.hero .lead{
+    margin-top:25px;
+    font-size:1.1rem;
+    color:var(--text-light);
+    max-width:720px;
+    margin-left:auto;
+    margin-right:auto;
+}
+.brand-nav-text{
+    color:var(--brand-color);
+    font-weight:700;
+    letter-spacing:1px;
+    font-size:1.5rem;
+}
+
+.navbar-brand img{
+    height:26px;   /* małe logo w navbar */
+}
+    
+/* =================================================
+SEKCJE INFORMACYJNE
+================================================= */
+
+.icon-box{
+    text-align:center;
+    padding:30px 20px;
+}
+
+.icon-box i{
+    font-size:30px;
+    margin-bottom:15px;
+    color:var(--brand-color);
+}
+
+.icon-box h5{
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.icon-box p{
+    font-size:0.95rem;
+    color:var(--text-light);
+}
+
+/* =================================================
+INWESTYCJE
+================================================= */
+
+#inwestycje{
+    background:var(--bg-light);
+}
+
+/* =================================================
+KONTAKT
+================================================= */
+
+#kontakt i{
+    color:var(--brand-color);
+    margin-right:8px;
+}
+
+/* =================================================
+FOOTER
+================================================= */
+
+.footer{
+    background:#f4f6f8;
+    padding:40px 0;
+    text-align:center;
+    font-size:14px;
+}
+
+.footer a{
+    color:var(--brand-color);
+    text-decoration:none;
+}
+
+.footer a:hover{
+    text-decoration:underline;
+}
+
+/* =================================================
+COOKIE POPUP
+================================================= */
+.cookie-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    padding:20px;
+}
+
+.cookie-modal{
+    background:#fff;
+    max-width:520px;
+    width:100%;
+    padding:35px;
+    border-radius:18px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.2);
+    position:relative;
+    animation:fadeIn .25s ease-out;
+}
+
+.cookie-modal h4{
+    color:var(--brand-color);
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.cookie-modal p{
+    font-size:0.95rem;
+    color:var(--text-light);
+    margin-bottom:15px;
+}
+
+.cookie-close{
+    position:absolute;
+    top:15px;
+    right:18px;
+    font-size:1.5rem;
+    cursor:pointer;
+    color:#999;
+}
+
+.cookie-close:hover{
+    color:#000;
+}
+
+.cookie-modal .btn-primary{
+    background:var(--brand-color);
+    border:none;
+    border-radius:50px;
+    padding:8px 22px;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+</style>
 </head>
+
 <body>
 
-<div class="logo-container">
-    <div class="symbol">
-        <div class="roof"></div>
-        <div class="bars">
-            <div class="bar bar1"></div>
-            <div class="bar bar2"></div>
-            <div class="bar bar3"></div>
-        </div>
-    </div>
+<!-- ===========================
+NAVIGATION
+=========================== -->
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+<div class="container">
+<a class="navbar-brand d-flex align-items-center fw-bold" href="#start">
+    <img src="logo.png" alt="RODER logo" height="26" class="me-2">
+    <span class="brand-nav-text">RODER</span>
+</a>
 
-    <h1 class="brand">RODER</h1>
-    <p class="tagline">dobry adres</p>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav ms-auto text-center">
+<li class="nav-item"><a class="nav-link" href="#home">Start</a></li>
+<li class="nav-item"><a class="nav-link" href="#inwestycje">Inwestycje</a></li>
+<li class="nav-item"><a class="nav-link" href="#kontakt">Kontakt</a></li>
+</ul>
 </div>
+</div>
+</nav>
+
+<!-- ===========================
+START
+=========================== -->
+<section id="start" class="hero d-flex align-items-center">
+<div class="container text-center">
+
+<img src="logo.webp"
+     alt="RODER logo"
+     class="brand-symbol img-fluid"
+     loading="eager"
+     fetchpriority="high">
+
+<div class="brand-name">
+    RODER
+</div>
+
+<div class="brand-tagline">
+    dobry adres
+</div>
+
+<h1 class="mt-5">
+Nowoczesne budownictwo jednorodzinne w Szczecinie
+</h1>
+
+<p class="lead mt-4">
+RODER to szczeciński deweloper realizujący kameralne inwestycje domów jednorodzinnych.
+Stawiamy na jakość, bezpieczeństwo i indywidualne podejście do klienta.
+</p>
+
+</div>
+</section>
+
+<!-- VALUES -->
+<section>
+<div class="container">
+<div class="row">
+
+<div class="col-md-3 icon-box">
+<i class="fas fa-map-location-dot"></i>
+<h5>Lokalizacja</h5>
+<p>Wybieramy wyłącznie starannie wyselekcjonowane działki w najlepszych rejonach Szczecina, gwarantujące komfort życia.</p>
+</div>
+
+<div class="col-md-3 icon-box">
+<i class="fas fa-shield-halved"></i>
+<h5>Bezpieczeństwo</h5>
+<p>Działamy zgodnie z ustawą deweloperską, zapewniając pełną transparentność oraz bezpieczeństwo każdej inwestycji.</p>
+</div>
+
+<div class="col-md-3 icon-box">
+<i class="fas fa-gem"></i>
+<h5>Wysoki standard</h5>
+<p>Stawiamy na jakość materiałów i przemyślane rozwiązania architektoniczne, tworząc domy na lata.</p>
+</div>
+
+<div class="col-md-3 icon-box">
+<i class="fas fa-pen-ruler"></i>
+<h5>Elastyczność</h5>
+<p>Na etapie realizacji umożliwiamy wprowadzanie indywidualnych zmian, dopasowując projekt do potrzeb klienta.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ===========================
+INWESTYCJE (placeholder)
+=========================== -->
+<section id="inwestycje" class="bg-light text-center">
+<div class="container">
+<h2>Inwestycje</h2>
+<p class="mt-4">Sekcja w przygotowaniu.</p>
+<div style="height:200px; border:1px dashed #ccc; border-radius:12px;"></div>
+</div>
+</section>
+
+<!-- ===========================
+KONTAKT
+=========================== -->
+<section id="kontakt" class="text-center">
+<div class="container">
+<h2>Kontakt</h2>
+<p class="mt-4"><i class="fas fa-phone"></i> 501 787 522</p>
+<p><i class="fas fa-envelope"></i> kontakt@roder.com.pl</p>
+<p><i class="fas fa-globe"></i> www.roder.com.pl</p>
+</div>
+</section>
+
+<!-- ===========================
+FOOTER
+=========================== -->
+<footer class="footer">
+<div class="container">
+<p>© 2026 RODER</p>
+<a href="#" id="cookieLink">Regulamin cookies</a>
+</div>
+</footer>
+
+<!-- ===========================
+COOKIE POPUP
+=========================== -->
+<div id="cookiePopup" class="cookie-overlay">
+  <div class="cookie-modal">
+    <span class="cookie-close" onclick="closeCookiePopup()">&times;</span>
+
+    <h4>Polityka cookies</h4>
+
+    <p>
+      Używamy plików Cookies, aby usprawnić działanie serwisu i zapamiętać Twoje ustawienia.
+      Pliki te nie zawierają danych osobowych i są bezpieczne.
+    </p>
+
+    <p>
+      Możesz w każdej chwili zmienić ustawienia swojej przeglądarki i usunąć zapisane pliki Cookies.
+      Wyłączenie Cookies może wpłynąć na działanie niektórych funkcji serwisu.
+    </p>
+
+    <p>
+      Korzystając z serwisu, wyrażasz zgodę na używanie plików Cookies zgodnie z tą polityką.
+    </p>
+
+    <button class="btn btn-primary mt-3" onclick="closeCookiePopup()">
+      Zamknij
+    </button>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Zamknięcie menu po kliknięciu
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.navbar-collapse').classList.remove('show');
+    });
+});
+
+document.body.addEventListener('click', () => {
+    document.querySelector('.navbar-collapse').classList.remove('show');
+});
+
+// Cookies
+function openCookiePopup(){
+  const popup = document.getElementById('cookiePopup');
+  if(popup){
+    popup.style.display = 'flex';
+  }
+}
+
+function closeCookiePopup(){
+  const popup = document.getElementById('cookiePopup');
+  if(popup){
+    popup.style.display = 'none';
+  }
+}
+
+/* otwieranie z linku w stopce */
+document.getElementById('cookieLink')?.addEventListener('click', function(e){
+    e.preventDefault();
+    openCookiePopup();
+});
+</script>
 
 </body>
 </html>
