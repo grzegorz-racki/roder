@@ -7,270 +7,551 @@
 
 <!-- SEO -->
 <title>RODER | Nowoczesne budownictwo jednorodzinne Szczecin</title>
-<meta name="description" content="RODER – nowoczesny deweloper ze Szczecina. Innowacyjne domy jednorodzinne w najlepszych lokalizacjach. Wysoki standard, bezpieczeństwo i elastyczność.">
+<meta name="description" content="RODER – nowoczesny deweloper ze Szczecina. Nowoczesne domy jednorodzinne w najlepszych lokalizacjach. Wysoki standard, bezpieczeństwo i elastyczność.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://roder.pl/">
+<meta property="og:title" content="RODER | Nowoczesne budownictwo jednorodzinne Szczecin">
+<meta property="og:description" content="Nowoczesny deweloper ze Szczecina – domy jednorodzinne w najlepszych lokalizacjach. Wysoki standard i elastyczność.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://roder.pl/">
 
 <!-- Security -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' https://cdn.jsdelivr.net; font-src https://cdnjs.cloudflare.com;">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Content-Security-Policy"
+content="
+default-src 'self';
+script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.google.com https://www.gstatic.com;
+style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
+img-src 'self' data: https:;
+frame-src https://www.google.com;
+font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+connect-src 'self' https://www.google.com;
+">
 
 <!-- Favicon -->
+<link rel="manifest" href="/site.webmanifest">
+<link rel="shortcut icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<!-- Apple touch icon (dla iOS) -->
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+<!-- Android Chrome -->
 <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+<link rel="shortcut icon" href="/favicon.ico">
 
-<!-- Bootstrap CSS -->
+<!-- CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 <!-- Font Awesome (tylko free solid) -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
-/* =================================================
-GLOBAL RESET + TYPOGRAFIA
-================================================= */
-
-:root{
-    --brand-color:#1A2F50;
-    --text-dark:#111;
-    --text-light:#6c757d;
-    --bg-light:#f8f9fa;
+/* =========================== GLOBAL RESET & VARIABLES =========================== */
+:root {
+    --brand-color: #1A2F50;
+    --brand-light: #2C3E6B;
+    --brand-dark: #0F1A2B;
+    --text-dark: #111;
+    --text-light: #6c757d;
+    --bg-light: #f8f9fa;
+    --transition-smooth: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    background:#fff;
-    color:var(--text-dark);
-    scroll-behavior:smooth;
-    line-height:1.6;
+/* =========================== BASE TYPOGRAPHY =========================== */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #fff;
+    color: var(--text-dark);
+    scroll-behavior: smooth;
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-section{
-    padding:100px 0;
+section {
+    padding: 120px 0;
+    position: relative;
 }
 
-h1,h2,h3{
-    font-weight:600;
-    letter-spacing:-0.5px;
+h1, h2, h3 {
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
-/* =================================================
-NAVIGATION
-================================================= */
-
-.navbar{
-    background:rgba(255,255,255,0.95);
-    backdrop-filter:blur(12px);
+h2 {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 3rem;
 }
 
-.navbar-brand img{
-    height:34px;
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--brand-color);
+    border-radius: 2px;
 }
 
-/* =================================================
-HERO / START
-================================================= */
-
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
+/* =========================== LINKS & INTERACTIONS =========================== */
+a {
+    position: relative;
+    display: inline-block;
+    color: var(--text-dark);
+    font-weight: 500;
+    text-decoration: none;
+    opacity: 0.9;
+    transition: var(--transition-smooth);
 }
 
-.brand-symbol{
-    max-width:200px;      /* logo trochę mniejsze */
-    margin-bottom:20px;
+a:hover {
+    color: var(--brand-color);
+    font-weight: 600;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px) scale(1.03);
+    opacity: 1;
 }
 
-.brand-name{
-    font-size:4.8rem;     /* większy */
-    font-weight:800;      /* grubszy */
-    letter-spacing:6px;
-    color:var(--brand-color);
-    line-height:1;
+a:active {
+    color: var(--brand-dark);
+    text-shadow: none;
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
 }
 
-.brand-tagline{
-    font-size:2.1rem;     /* ciut większy */
-    font-weight:600;
-    color:var(--brand-color);
-    margin-top:0px;
+/* =========================== NAVIGATION =========================== */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    padding: 1rem 0;
+    transition: var(--transition-smooth);
 }
 
-.hero h1{
-    margin-top:60px;
-    font-size:2.1rem;
-    font-weight:600;
-    color:var(--text-dark);
+.navbar.scrolled {
+    padding: 0.5rem 0;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
-.hero .lead{
-    margin-top:25px;
-    font-size:1.1rem;
-    color:var(--text-light);
-    max-width:720px;
-    margin-left:auto;
-    margin-right:auto;
-}
-.brand-nav-text{
-    color:var(--brand-color);
-    font-weight:700;
-    letter-spacing:1px;
-    font-size:1.5rem;
+.navbar-brand img {
+    height: 20px;
+    transition: none; /* Usunięty efekt skrzywienia */
 }
 
-.navbar-brand img{
-    height:26px;   /* małe logo w navbar */
+.brand-nav-text {
+    color: var(--brand-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: var(--transition-smooth);
 }
+
+.nav-link {
+    position: relative;
+    margin: 0 0.5rem;
+    padding: 0.5rem 0 !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--brand-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+/* =========================== HERO SECTION =========================== */
+.hero {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    background: #ffffff; /* Tło białe */
+    position: relative;
+    overflow: hidden;
+}
+
+.hero h1 {
+    margin-top: 60px;
+    font-size: 2.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.hero .lead {
+    max-width: 720px;
+    margin: 25px auto 0;
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+/* Hero Branding */
+.brand-symbol {
+    max-width: 200px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 10px 20px rgba(26,47,80,0.1));
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.brand-name {
+    font-size: 4.8rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 6px;
+    color: var(--brand-color);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.05);
+    animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 2px 2px 0 rgba(26,47,80,0.1); }
+    50% { text-shadow: 4px 4px 0 rgba(26,47,80,0.2); }
+}
+
+.brand-tagline {
+    margin-top: 0;
+    font-size: 2.1rem;
+    font-weight: 600;
+    color: var(--brand-color);
+    opacity: 0.9;
+}
+
+/* =========================== INFO SECTIONS =========================== */
+.icon-box {
+    padding: 40px 30px;
+    text-align: center;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: var(--transition-smooth);
+    height: 100%;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.icon-box:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(26,47,80,0.1);
+    border-color: var(--brand-color);
+}
+
+.icon-box i {
+    margin-bottom: 20px;
+    font-size: 40px;
+    color: var(--brand-color);
+    transition: var(--transition-smooth);
+}
+
+.icon-box:hover i {
+    transform: scale(1.2) rotate(5deg);
+    color: var(--brand-light);
+}
+
+.icon-box h5 {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.icon-box p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+/* =========================== INVESTMENTS SECTION =========================== */
+#inwestycje {
+    background: linear-gradient(135deg, var(--bg-light) 0%, #fff 100%);
+    position: relative;
+}
+
+.investment-placeholder {
+    height: 250px;
+    border: 2px dashed var(--brand-color);
+    border-radius: 20px;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+.investment-placeholder:hover {
+    transform: scale(1.02);
+    border-color: var(--brand-light);
+    background: rgba(255,255,255,0.8);
+}
+
+/* =========================== CONTACT SECTION =========================== */
+.contact-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    transition: var(--transition-smooth);
+}
+
+.contact-wrapper:hover {
+    box-shadow: 0 30px 60px rgba(26,47,80,0.1);
+}
+
+#kontakt p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+/* Lewa kolumna - tylko ona ma efekty hover */
+#kontakt .col-md-6:first-child p {
+    font-size: 18px;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+}
+
+#kontakt .col-md-6:first-child p:hover {
+    transform: translateX(10px);
+}
+
+#kontakt .col-md-6:first-child i {
+    margin-right: 12px;
+    font-size: 20px;
+    color: var(--brand-color);
+}
+
+/* Prawa kolumna - bez efektów */
+#kontakt .col-md-6:last-child p {
+    font-size: 16px;
+    transition: none;
+    transform: none;
+}
+
+#kontakt .col-md-6:last-child p:hover {
+    transform: none;
+}
+
+#kontakt .col-md-6:last-child i {
+    color: var(--brand-color);
+    margin-right: 8px;
+}
+
+#kontakt strong {
+    color: var(--brand-color);
+}
+
+/* =========================== FOOTER =========================== */
+.footer {
+    padding: 20px 0; 
+    background: linear-gradient(135deg, #f4f6f8 0%, #e9ecef 100%);
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--brand-color), transparent);
+}
+
+.footer a {
+    font-weight: 500;
+}
+
+.footer-cookie-link {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 5px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.footer-cookie-link:hover {
+    color: var(--brand-color);
+    transform: translateY(-3px) scale(1.1);
+    text-shadow: 0 5px 10px rgba(26,47,80,0.3);
+    background: rgba(26,47,80,0.05);
+    padding: 5px 15px;
+}
+
+/* =========================== COOKIE POPUP =========================== */
+.cookie-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(5px);
+}
+
+.cookie-modal {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    padding: 40px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.cookie-modal h4 {
+    margin-bottom: 20px;
+    color: var(--brand-color);
+}
+
+.cookie-modal p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #444;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--brand-color);
+    transform: rotate(90deg);
+}
+
+/* =========================== ANIMATIONS =========================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* AOS Custom Overrides */
+[data-aos] {
+    pointer-events: none;
+}
+
+[data-aos].aos-animate {
+    pointer-events: auto;
+}
+
+/* =========================== RESPONSIVE =========================== */
+@media (max-width: 768px) {
+    section {
+        padding: 80px 0;
+    }
     
-/* =================================================
-SEKCJE INFORMACYJNE
-================================================= */
-
-.icon-box{
-    text-align:center;
-    padding:30px 20px;
+    .brand-name {
+        font-size: 3.2rem;
+        letter-spacing: 4px;
+    }
+    
+    .brand-tagline {
+        font-size: 1.5rem;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+        margin-top: 40px;
+    }
+    
+    .icon-box {
+        margin-bottom: 20px;
+    }
+    
+    .contact-wrapper {
+        padding: 30px 20px;
+    }
+    
+    .footer {
+        padding: 15px 0;
+    }
 }
 
-.icon-box i{
-    font-size:30px;
-    margin-bottom:15px;
-    color:var(--brand-color);
-}
-
-.icon-box h5{
-    font-weight:600;
-    margin-bottom:10px;
-}
-
-.icon-box p{
-    font-size:0.95rem;
-    color:var(--text-light);
-}
-
-/* =================================================
-INWESTYCJE
-================================================= */
-
-#inwestycje{
-    background:var(--bg-light);
-}
-
-/* =================================================
-KONTAKT
-================================================= */
-
-#kontakt i{
-    color:var(--brand-color);
-    margin-right:8px;
-}
-
-/* =================================================
-FOOTER
-================================================= */
-
-.footer{
-    background:#f4f6f8;
-    padding:40px 0;
-    text-align:center;
-    font-size:14px;
-}
-
-.footer a{
-    color:var(--brand-color);
-    text-decoration:none;
-}
-
-.footer a:hover{
-    text-decoration:underline;
-}
-
-/* =================================================
-COOKIE POPUP
-================================================= */
-.cookie-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.45);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-    padding:20px;
-}
-
-.cookie-modal{
-    background:#fff;
-    max-width:520px;
-    width:100%;
-    padding:35px;
-    border-radius:18px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.2);
-    position:relative;
-    animation:fadeIn .25s ease-out;
-}
-
-.cookie-modal h4{
-    color:var(--brand-color);
-    font-weight:700;
-    margin-bottom:20px;
-}
-
-.cookie-modal p{
-    font-size:0.95rem;
-    color:var(--text-light);
-    margin-bottom:15px;
-}
-
-.cookie-close{
-    position:absolute;
-    top:15px;
-    right:18px;
-    font-size:1.5rem;
-    cursor:pointer;
-    color:#999;
-}
-
-.cookie-close:hover{
-    color:#000;
-}
-
-.cookie-modal .btn-primary{
-    background:var(--brand-color);
-    border:none;
-    border-radius:50px;
-    padding:8px 22px;
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(10px);}
-    to{opacity:1; transform:translateY(0);}
+@media (max-width: 576px) {
+    .brand-name {
+        font-size: 2.5rem;
+        letter-spacing: 3px;
+    }
+    
+    .brand-tagline {
+        font-size: 1.2rem;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===========================
-NAVIGATION
-=========================== -->
-<nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+<!-- =========================== NAVIGATION =========================== -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
 <div class="container">
 <a class="navbar-brand d-flex align-items-center fw-bold" href="#start">
-    <img src="logo.png" alt="RODER logo" height="26" class="me-2">
+    <img src="logo.webp" alt="RODER logo" height="26" class="me-2">
     <span class="brand-nav-text">RODER</span>
 </a>
 
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
 
 <div class="collapse navbar-collapse" id="navbarNav">
 <ul class="navbar-nav ms-auto text-center">
-<li class="nav-item"><a class="nav-link" href="#home">Start</a></li>
+<li class="nav-item"><a class="nav-link" href="#start">Start</a></li>
 <li class="nav-item"><a class="nav-link" href="#inwestycje">Inwestycje</a></li>
 <li class="nav-item"><a class="nav-link" href="#kontakt">Kontakt</a></li>
 </ul>
@@ -278,34 +559,42 @@ NAVIGATION
 </div>
 </nav>
 
-<!-- ===========================
-START
-=========================== -->
+<!-- =========================== START =========================== -->
 <section id="start" class="hero d-flex align-items-center">
 <div class="container text-center">
 
+<div data-aos="fade-down" data-aos-duration="1000">
 <img src="logo.webp"
      alt="RODER logo"
      class="brand-symbol img-fluid"
      loading="eager"
      fetchpriority="high">
+</div>
 
+<div data-aos="zoom-in" data-aos-duration="1200">
 <div class="brand-name">
     RODER
 </div>
+</div>
 
+<div data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1200">
 <div class="brand-tagline">
     dobry adres
 </div>
+</div>
 
+<div data-aos="fade-up" data-aos-delay="400">
 <h1 class="mt-5">
 Nowoczesne budownictwo jednorodzinne w Szczecinie
 </h1>
+</div>
 
+<div data-aos="fade-up" data-aos-delay="600">
 <p class="lead mt-4">
 RODER to szczeciński deweloper realizujący kameralne inwestycje domów jednorodzinnych.
 Stawiamy na jakość, bezpieczeństwo i indywidualne podejście do klienta.
 </p>
+</div>
 
 </div>
 </section>
@@ -313,75 +602,109 @@ Stawiamy na jakość, bezpieczeństwo i indywidualne podejście do klienta.
 <!-- VALUES -->
 <section>
 <div class="container">
-<div class="row">
+<div class="row g-4">
 
-<div class="col-md-3 icon-box">
+<div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+<div class="icon-box">
 <i class="fas fa-map-location-dot"></i>
 <h5>Lokalizacja</h5>
 <p>Wybieramy wyłącznie starannie wyselekcjonowane działki w najlepszych rejonach Szczecina, gwarantujące komfort życia.</p>
 </div>
+</div>
 
-<div class="col-md-3 icon-box">
+<div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+<div class="icon-box">
 <i class="fas fa-shield-halved"></i>
 <h5>Bezpieczeństwo</h5>
 <p>Działamy zgodnie z ustawą deweloperską, zapewniając pełną transparentność oraz bezpieczeństwo każdej inwestycji.</p>
 </div>
+</div>
 
-<div class="col-md-3 icon-box">
+<div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+<div class="icon-box">
 <i class="fas fa-gem"></i>
 <h5>Wysoki standard</h5>
 <p>Stawiamy na jakość materiałów i przemyślane rozwiązania architektoniczne, tworząc domy na lata.</p>
 </div>
+</div>
 
-<div class="col-md-3 icon-box">
+<div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+<div class="icon-box">
 <i class="fas fa-pen-ruler"></i>
 <h5>Elastyczność</h5>
 <p>Na etapie realizacji umożliwiamy wprowadzanie indywidualnych zmian, dopasowując projekt do potrzeb klienta.</p>
 </div>
+</div>
 
 </div>
 </div>
 </section>
 
-<!-- ===========================
-INWESTYCJE (placeholder)
-=========================== -->
+<!-- =========================== INWESTYCJE =========================== -->
 <section id="inwestycje" class="bg-light text-center">
 <div class="container">
-<h2>Inwestycje</h2>
-<p class="mt-4">Sekcja w przygotowaniu.</p>
-<div style="height:200px; border:1px dashed #ccc; border-radius:12px;"></div>
+<h2 data-aos="fade-down">Inwestycje</h2>
+<p class="mt-4" data-aos="fade-up" data-aos-delay="100">Sekcja w przygotowaniu.</p>
+<div class="investment-placeholder mt-5" data-aos="zoom-in" data-aos-delay="200">
+    <p class="text-muted">Nowe inwestycje już wkrótce</p>
+</div>
 </div>
 </section>
 
-<!-- ===========================
-KONTAKT
-=========================== -->
-<section id="kontakt" class="text-center">
-<div class="container">
-<h2>Kontakt</h2>
-<p class="mt-4"><i class="fas fa-phone"></i> 501 787 522</p>
-<p><i class="fas fa-envelope"></i> kontakt@roder.com.pl</p>
-<p><i class="fas fa-globe"></i> www.roder.com.pl</p>
-</div>
+<!-- =========================== KONTAKT =========================== -->
+<section id="kontakt">
+  <div class="container">
+    <h2 class="text-center mb-5" data-aos="fade-down">Kontakt</h2>
+
+    <div class="contact-wrapper mx-auto" data-aos="flip-up" data-aos-duration="1200">
+      <div class="row text-start">
+
+        <!-- LEWA STRONA - Z EFEKTAMI -->
+        <div class="col-md-6 mb-4" data-aos="fade-right" data-aos-delay="200">
+          <p><i class="fas fa-phone"></i> 
+            <a href="tel:+48501787522">501 787 522</a>
+          </p>
+
+          <p><i class="fas fa-envelope"></i> 
+            <a href="mailto:kontakt@roder.com.pl">kontakt@roder.com.pl</a>
+          </p>
+
+          <p><i class="fas fa-globe"></i> 
+            <a href="https://www.roder.com.pl" target="_blank">
+              www.roder.com.pl
+            </a>
+          </p>
+        </div>
+
+        <!-- PRAWA STRONA - BEZ EFEKTÓW -->
+        <div class="col-md-6 mb-4">
+          <p><strong>RODER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</strong></p>
+          <p>Adres: ul. Gazdy 4, 71-018 Szczecin.</p>
+          <p>KRS: 0001167606.</p>
+          <p>NIP: 8522718752.</p>
+          <p>REGON: 541458786.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ===========================
-FOOTER
-=========================== -->
+<!-- =========================== FOOTER =========================== -->
 <footer class="footer">
-<div class="container">
-<p>© 2026 RODER</p>
-<a href="#" id="cookieLink">Regulamin cookies</a>
+<div class="container d-flex flex-column align-items-center" style="gap: 5px;">
+    <p class="mb-0">© 2026 RODER.COM.PL | Wszelkie prawa zastrzeżone.</p>
+    <a href="javascript:void(0)" onclick="openCookiePopup()" class="footer-cookie-link">
+        Polityka prywatności i cookies
+    </a>
 </div>
 </footer>
 
-<!-- ===========================
-COOKIE POPUP
-=========================== -->
+<!-- COOKIE POPUP -->
 <div id="cookiePopup" class="cookie-overlay">
   <div class="cookie-modal">
-    <span class="cookie-close" onclick="closeCookiePopup()">&times;</span>
+
+    <span class="close-btn" onclick="closeCookiePopup()">&times;</span>
 
     <h4>Polityka cookies</h4>
 
@@ -402,44 +725,110 @@ COOKIE POPUP
     <button class="btn btn-primary mt-3" onclick="closeCookiePopup()">
       Zamknij
     </button>
+
   </div>
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+<!-- =========================== SCRIPTS =========================== -->  
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
 <script>
-// Zamknięcie menu po kliknięciu
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        document.querySelector('.navbar-collapse').classList.remove('show');
+document.addEventListener("DOMContentLoaded", function(){
+
+// ===== AOS INITIALIZATION =====
+AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true,
+    mirror: false,
+    offset: 50
+});
+
+// ===== NAVBAR SCROLL EFFECT =====
+const navbar = document.getElementById('mainNav');
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// ===== MENU HAMBURGER (BOOTSTRAP 5) =====
+const navbarCollapse = document.getElementById('navbarNav');
+const navbarToggler = document.querySelector('.navbar-toggler');
+
+if (navbarCollapse && typeof bootstrap !== "undefined") {
+    const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse, {
+        toggle: false
+    });
+
+    const navLinks = navbarCollapse.querySelectorAll('.nav-link');
+
+    // Kliknięcie w link zamyka menu
+    navLinks.forEach(function(link){
+        link.addEventListener('click', function(){
+            if (navbarCollapse.classList.contains('show')) {
+                bsCollapse.hide();
+            }
+        });
+    });
+
+    // Kliknięcie poza menu zamyka
+    document.addEventListener('click', function(e){
+        const clickInsideMenu = navbarCollapse.contains(e.target);
+        const clickOnToggler = navbarToggler && navbarToggler.contains(e.target);
+        const clickInsideCookie = e.target.closest('#cookiePopup');
+
+        if (clickInsideMenu || clickOnToggler || clickInsideCookie) return;
+
+        if (navbarCollapse.classList.contains('show')) {
+            bsCollapse.hide();
+        }
+    });
+}
+
+// ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     });
 });
 
-document.body.addEventListener('click', () => {
-    document.querySelector('.navbar-collapse').classList.remove('show');
 });
-
-// Cookies
+    
+// ===== COOKIES =====
 function openCookiePopup(){
-  const popup = document.getElementById('cookiePopup');
-  if(popup){
-    popup.style.display = 'flex';
-  }
+    const popup = document.getElementById('cookiePopup');
+    if(popup) {
+        popup.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function closeCookiePopup(){
-  const popup = document.getElementById('cookiePopup');
-  if(popup){
-    popup.style.display = 'none';
-  }
+    const popup = document.getElementById('cookiePopup');
+    if(popup) {
+        popup.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 }
 
-/* otwieranie z linku w stopce */
-document.getElementById('cookieLink')?.addEventListener('click', function(e){
-    e.preventDefault();
-    openCookiePopup();
-})
+// Close on ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeCookiePopup();
+    }
+});
 </script>
 
 </body>
