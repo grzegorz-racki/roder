@@ -182,7 +182,7 @@ a:active {
     opacity: 0.9;
 }
 
-/* =========================== INFO SECTIONS =========================== */
+/* =========================== INFO SECTIONS (IKONY) =========================== */
 .icon-box {
     padding: 40px 30px;
     text-align: center;
@@ -226,37 +226,140 @@ a:active {
 
 /* =========================== INVESTMENTS SECTION =========================== */
 #inwestycje {
-    background: linear-gradient(135deg, var(--bg-light) 0%, #fff 100%);
-    position: relative;
+    padding-bottom: 30px; /* Zmniejszony odstęp przed kontaktem */
 }
 
-.investment-placeholder {
-    height: 250px;
-    border: 2px dashed var(--brand-color);
+#inwestycje h2 {
+    text-align: center; /* Wyśrodkowanie nagłówka */
+    width: 100%;
+    display: block; /* Zmiana z inline-block na block dla lepszego centrowania */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#inwestycje h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.investment-card {
+    border: none;
     border-radius: 20px;
-    background: rgba(255,255,255,0.5);
-    backdrop-filter: blur(5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-smooth);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    background: #fff;
 }
 
-.investment-placeholder:hover {
-    transform: scale(1.02);
-    border-color: var(--brand-light);
-    background: rgba(255,255,255,0.8);
+.investment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(26,47,80,0.1);
 }
 
-.investments-frame {
-  width: 100%;
-  min-height: 600px;
-  border: none;
-  overflow: hidden;
-  transition: height 0.3s ease;
+.investment-table td {
+    padding: 0.3rem 0;
+    border: none;
+}
+
+.investment-table td:first-child {
+    font-weight: 600;
+    color: var(--text-dark);
+    width: 40%;
+}
+
+.investment-table td:last-child {
+    color: var(--text-light);
+}
+
+/* Statusy inwestycji - POWIĘKSZONE */
+.investment-badge {
+    display: inline-block;
+    padding: 4px 10px; /* ← To kontroluje wielkość wewnętrzną (wysokość/szerokość) */
+    border-radius: 40px; 
+    font-weight: 800;
+    font-size: 0.8rem; /* ← To kontroluje wielkość tekstu */
+    text-transform: uppercase;
+    letter-spacing: 0.7px; 
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    border: 1px solid rgba(255,255,255,0.2); 
+}
+
+.status-aktualna {
+    background: #28a745;
+    color: white;
+    box-shadow: 0 3px 12px rgba(40, 167, 69, 0.4);
+}
+
+.status-wkrotce {
+    background: #ffc107;
+    color: #000;
+    box-shadow: 0 3px 12px rgba(255, 193, 7, 0.4);
+}
+
+.status-zrealizowana {
+    background: #6c757d;
+    color: white;
+    box-shadow: 0 3px 12px rgba(108, 117, 125, 0.4);
+}
+
+/* Galeria w modalu */
+.modal-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.modal-gallery img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.modal-gallery img:hover {
+    transform: scale(1.05);
+}
+
+.modal-map {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: none;
+}
+
+/* Filtry inwestycji */
+.filter-btn {
+    border-radius: 30px;
+    padding: 6px 20px;
+    margin: 0 5px 10px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--brand-color);
+    background: transparent;
+    color: var(--brand-color);
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    background: var(--brand-color);
+    color: white;
+}
+
+.filter-btn.active {
+    background: var(--brand-color);
+    color: white;
+    border-color: var(--brand-color);
 }
 
 /* =========================== CONTACT SECTION =========================== */
+#kontakt {
+    padding-top: 30px; /* Zmniejszony odstęp od inwestycji */
+}
+
 .contact-wrapper {
     max-width: 900px;
     margin: 0 auto;
@@ -415,7 +518,15 @@ a:active {
 /* =========================== RESPONSIVE =========================== */
 @media (max-width: 768px) {
     section {
-        padding: 80px 0;
+        padding: 60px 0;
+    }
+    
+    #inwestycje {
+        padding-bottom: 20px;
+    }
+    
+    #kontakt {
+        padding-top: 20px;
     }
     
     .brand-name {
@@ -443,6 +554,19 @@ a:active {
     .footer {
         padding: 15px 0;
     }
+    
+    .investment-card .row {
+        flex-direction: column;
+    }
+    
+    .investment-card .col-md-5 img {
+        border-radius: 20px 20px 0 0 !important;
+    }
+    
+    .investment-badge {
+        padding: 6px 14px; /* Mniejsze na mobile, ale wciąż powiększone względem wersji podstawowej */
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -453,5 +577,19 @@ a:active {
     
     .brand-tagline {
         font-size: 1.2rem;
+    }
+    
+    .modal-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .filter-btn {
+        padding: 4px 15px;
+        font-size: 0.8rem;
+    }
+    
+    .investment-badge {
+        padding: 5px 12px;
+        font-size: 0.75rem;
     }
 }
