@@ -1,6 +1,8 @@
 <?php
-// inwestycje/embed.php - iframe z listą inwestycji
+// inwestycje/embed.php
 header('Content-Type: text/html; charset=utf-8');
+header('X-Frame-Options: ALLOWALL'); // Dla Apache
+header('Content-Security-Policy: frame-ancestors *;'); 
 ?>
 <!DOCTYPE html>
 <html lang="pl">
