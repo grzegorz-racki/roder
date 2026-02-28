@@ -361,6 +361,90 @@ a:active {
     border-color: var(--brand-color);
 }
 
+/* =========================== INVESTMENT DETAILS =========================== */
+.investment-details .table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.investment-details .table-bordered th,
+.investment-details .table-bordered td {
+    border: 1px solid #dee2e6;
+    padding: 0.75rem;
+}
+
+.investment-details .table-dark {
+    background: var(--brand-color);
+    color: white;
+}
+
+.investment-details .accordion-item {
+    border: 1px solid rgba(0,0,0,0.125);
+    margin-bottom: 5px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.investment-details .accordion-button {
+    background: #f8f9fa;
+    color: var(--brand-color);
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+}
+
+.investment-details .accordion-button:not(.collapsed) {
+    background: var(--brand-color);
+    color: white;
+}
+
+.investment-details .accordion-body {
+    background: white;
+    padding: 1.25rem;
+}
+
+.investment-details .list-group-item {
+    border: none;
+    padding: 0.5rem 0;
+    background: transparent;
+}
+
+.investment-details .fa-circle {
+    color: var(--brand-color);
+    margin-right: 10px;
+}
+
+.investment-details h6 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--brand-color);
+    border-left: 4px solid var(--brand-color);
+    padding-left: 15px;
+}
+
+.investment-details .lead {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-dark);
+}
+
+/* Responsywność tabel */
+@media (max-width: 768px) {
+    .investment-details .table-bordered {
+        font-size: 0.9rem;
+    }
+    
+    .investment-details .table-bordered th,
+    .investment-details .table-bordered td {
+        padding: 0.5rem;
+    }
+    
+    .investment-details .accordion-button {
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+    }
+}
+
 /* =========================== CONTACT SECTION =========================== */
 #kontakt {
     padding-top: 30px; /* Zmniejszony odstęp od inwestycji */
