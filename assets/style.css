@@ -232,7 +232,8 @@ a:active {
 
 /* =========================== INVESTMENTS SECTION =========================== */
 #inwestycje {
-    padding-bottom: 30px; /* Zmniejszony odstęp przed kontaktem */
+    scroll-margin-top: 40px; /* Dodaje odstęp przy scrollowaniu */
+    padding-bottom: 30px;
 }
 
 #inwestycje h2 {
