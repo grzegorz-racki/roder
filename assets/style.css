@@ -232,7 +232,7 @@ a:active {
 
 /* =========================== INVESTMENTS SECTION =========================== */
 #inwestycje {
-    scroll-margin-top: 40px; /* Dodaje odstęp przy scrollowaniu */
+    padding-top: 80px;
     padding-bottom: 30px;
 }
 
