@@ -1,0 +1,19 @@
+RewriteEngine On
+
+# =========================== WYMUSZENIE HTTPS ===========================
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://roder.com.pl/$1 [R=301,L]
+
+# =========================== USUNIĘCIE www ===========================
+RewriteCond %{HTTP_HOST} ^www\.roder\.com\.pl$ [NC]
+RewriteRule ^(.*)$ https://roder.com.pl/$1 [R=301,L]
+
+# =========================== USUNIĘCIE INDEX.HTML ===========================
+RewriteCond %{THE_REQUEST} /index\.html [NC]
+RewriteRule ^index\.html$ https://roder.com.pl/ [R=301,L]
+
+# =========================== BLOKADA DOSTĘPU DO .HTACCESS ===========================
+<Files .htaccess>
+    Order Allow,Deny
+    Deny from all
+</Files>
