@@ -165,7 +165,7 @@ a:active {
 }
 
 .brand-name {
-    font-size: clamp(3rem, 8vw, 4.8rem);  /* 3rem na małych, 4.8rem na dużych */
+    font-size: clamp(3.5rem, 8vw, 4.8rem);  /* 3rem na małych, 4.8rem na dużych */
     font-weight: 800;
     line-height: 1;
     letter-spacing: clamp(2px, 2vw, 6px);  /* Skalowane odstępy */
@@ -181,7 +181,7 @@ a:active {
 }
 
 .brand-tagline {
-    font-size: clamp(1.5rem, 4vw, 2.1rem);  /* 1.5rem na małych, 2.1rem na dużych */
+    font-size: clamp(1.6rem, 4vw, 2.1rem);  /* 1.5rem na małych, 2.1rem na dużych */
     margin-top: 0;
     font-weight: 600;
     color: var(--brand-color);
@@ -577,14 +577,13 @@ a:active {
 
 @media (max-width: 576px) {
     .brand-name {
-        font-size: 2.5rem;
+        font-size: 4.5rem;  /* Zwiększone z 2.5rem */
         letter-spacing: 3px;
     }
     
     .brand-tagline {
-        font-size: 1.2rem;
+        font-size: 2rem;  /* Zwiększone z 1.2rem */
     }
-    
     .modal-gallery {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
