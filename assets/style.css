@@ -446,7 +446,27 @@ a:active {
     }
 }
 
-/* Pobierz PDF bez pwoekszania */
+/* przycisk otodom */
+.btn-outline-warning {
+    color: #b34d1a; /* Pomarańczowy kolor Otodom */
+    border-color: #e67e22;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-warning:hover {
+    background-color: #e67e22;
+    color: white;
+    border-color: #e67e22;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+}
+
+/* Dla spójności z innymi przyciskami - bez skalowania */
+.btn-outline-warning:hover {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Przycisk Pobierz prospekt PDF */
 .btn-outline-primary.no-scale {
     transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
