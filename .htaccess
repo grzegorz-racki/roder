@@ -1,19 +1,74 @@
 RewriteEngine On
 
-# =========================== WYMUSZENIE HTTPS ===========================
+# =====================================================
+# GŁÓWNE PRZEKIEROWANIE DO https://roder.com.pl
+# =====================================================
+
+RewriteCond %{HTTP_HOST} !^roder\.com\.pl$ [NC]
+RewriteRule ^(.*)$ https://roder.com.pl/$1 [R=301,L]
+
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://roder.com.pl/$1 [R=301,L]
 
-# =========================== USUNIĘCIE www ===========================
-RewriteCond %{HTTP_HOST} ^www\.roder\.com\.pl$ [NC]
-RewriteRule ^(.*)$ https://roder.com.pl/$1 [R=301,L]
 
-# =========================== USUNIĘCIE INDEX.HTML ===========================
-RewriteCond %{THE_REQUEST} /index\.html [NC]
+# =====================================================
+# USUNIĘCIE index.html
+# =====================================================
+
+RewriteCond %{THE_REQUEST} \s/index\.html [NC]
 RewriteRule ^index\.html$ https://roder.com.pl/ [R=301,L]
 
-# =========================== BLOKADA DOSTĘPU DO .HTACCESS ===========================
-<Files .htaccess>
-    Order Allow,Deny
-    Deny from all
+
+# =====================================================
+# BLOKADA DOSTĘPU DO PLIKÓW UKRYTYCH
+# =====================================================
+
+<Files ".htaccess">
+    Require all denied
 </Files>
+
+
+# =====================================================
+# WYŁĄCZENIE LISTOWANIA KATALOGÓW
+# =====================================================
+
+Options -Indexes
+
+
+# =====================================================
+# KOMPRESJA GZIP
+# =====================================================
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE application/xml application/xhtml+xml
+</IfModule>
+
+
+# =====================================================
+# CACHE
+# =====================================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/html "access plus 1 hour"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+</IfModule>
+
+
+# =====================================================
+# PODSTAWOWE NAGŁÓWKI BEZPIECZEŃSTWA
+# =====================================================
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
