@@ -165,14 +165,14 @@ a:active {
 }
 
 .brand-name {
-    font-size: clamp(3.5rem, 8vw, 4.8rem);  /* 3rem na małych, 4.8rem na dużych */
+    font-size: clamp(3.5rem, 8vw, 4.8rem);
     font-weight: 800;
     line-height: 1;
-    letter-spacing: clamp(2px, 2vw, 6px);  /* Skalowane odstępy */
+    letter-spacing: clamp(2px, 2vw, 6px);
     color: var(--brand-color);
     text-shadow: 2px 2px 0 rgba(0,0,0,0.05);
     animation: glow 3s ease-in-out infinite;
-    word-break: break-word; /* Zabezpieczenie przed przepełnieniem */
+    word-break: break-word;
 }
 
 @keyframes glow {
@@ -181,7 +181,7 @@ a:active {
 }
 
 .brand-tagline {
-    font-size: clamp(1.6rem, 4vw, 2.1rem);  /* 1.5rem na małych, 2.1rem na dużych */
+    font-size: clamp(1.6rem, 4vw, 2.1rem);
     margin-top: 0;
     font-weight: 600;
     color: var(--brand-color);
@@ -237,9 +237,9 @@ a:active {
 }
 
 #inwestycje h2 {
-    text-align: center; /* Wyśrodkowanie nagłówka */
+    text-align: center;
     width: 100%;
-    display: block; /* Zmiana z inline-block na block dla lepszego centrowania */
+    display: block;
     margin-left: auto;
     margin-right: auto;
 }
@@ -281,14 +281,14 @@ a:active {
 /* Statusy inwestycji - POWIĘKSZONE */
 .investment-badge {
     display: inline-block;
-    padding: 4px 10px; /* ← To kontroluje wielkość wewnętrzną (wysokość/szerokość) */
-    border-radius: 40px; 
+    padding: 4px 10px;
+    border-radius: 40px;
     font-weight: 800;
-    font-size: 0.8rem; /* ← To kontroluje wielkość tekstu */
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.7px; 
+    letter-spacing: 0.7px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    border: 1px solid rgba(255,255,255,0.2); 
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 .status-aktualna {
@@ -429,26 +429,114 @@ a:active {
     color: var(--text-dark);
 }
 
-/* Responsywność tabel */
-@media (max-width: 768px) {
-    .investment-details .table-bordered {
-        font-size: 0.9rem;
+/* =========================== STATUSY DLA SEGMENTÓW - POPRAWIONE =========================== */
+
+/* Animacja pulsowania dla wszystkich statusów */
+@keyframes statusPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0,0,0,0.3);
     }
-    
-    .investment-details .table-bordered th,
-    .investment-details .table-bordered td {
-        padding: 0.5rem;
+    70% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 6px rgba(0,0,0,0);
     }
-    
-    .investment-details .accordion-button {
-        padding: 0.75rem 1rem;
-        font-size: 0.95rem;
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0,0,0,0);
     }
 }
 
+/* SPRZEDANY */
+.sold-row {
+    background-color: rgba(220,53,69,0.05) !important;
+}
+
+.sold-row td {
+    text-decoration-line: line-through !important;
+    text-decoration-color: #dc3545 !important;
+    text-decoration-thickness: 2px !important;
+    color: #6c757d;
+}
+
+.sold-row td strong {
+    text-decoration-line: line-through !important;
+    text-decoration-color: #dc3545 !important;
+}
+
+.badge-sold {
+    background: #dc3545;
+}
+
+/* REZERWACJA */
+.reserved-row {
+    background-color: rgba(255,193,7,0.08);
+}
+
+.badge-reserved {
+    background: #ffc107;
+    color: #000;
+}
+
+/* DOSTĘPNY */
+.available-row {
+    background-color: rgba(40,167,69,0.05);
+}
+
+.badge-available {
+    background: #28a745;
+}
+
+/* WSPÓLNE STYLE DLA BADGE - WERSJA W LINII */
+.badge-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.status-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    color: #fff;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    animation: statusPulse 2s infinite;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.badge-container strong {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.status-badge:hover {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+    transition: all 0.3s ease;
+}
+
+.price-sold {
+    font-weight: 600;
+    color: #dc3545 !important;
+}
+
+.available-text {
+    color: #28a745;
+    font-weight: 600;
+}
+
+/* =========================== PRZYCISKI =========================== */
+
 /* przycisk otodom */
 .btn-outline-warning {
-    color: #b34d1a; /* Pomarańczowy kolor Otodom */
+    color: #b34d1a;
     border-color: #e67e22;
     transition: all 0.3s ease;
 }
@@ -461,7 +549,6 @@ a:active {
     box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
 }
 
-/* Dla spójności z innymi przyciskami - bez skalowania */
 .btn-outline-warning:hover {
     transform: translateY(-2px) scale(1.02);
 }
@@ -472,13 +559,13 @@ a:active {
 }
 
 .btn-outline-primary.no-scale:hover {
-    transform: none !important; /* Wyłączenie transformacji */
-    scale: none !important; /* Wyłączenie skalowania */
+    transform: none !important;
+    scale: none !important;
 }
 
 /* =========================== CONTACT SECTION =========================== */
 #kontakt {
-    padding-top: 30px; /* Zmniejszony odstęp od inwestycji */
+    padding-top: 30px;
 }
 
 .contact-wrapper {
@@ -685,20 +772,35 @@ a:active {
     }
     
     .investment-badge {
-        padding: 6px 14px; /* Mniejsze na mobile, ale wciąż powiększone względem wersji podstawowej */
+        padding: 6px 14px;
         font-size: 0.8rem;
+    }
+
+    .investment-details .table-bordered {
+        font-size: 0.9rem;
+    }
+    
+    .investment-details .table-bordered th,
+    .investment-details .table-bordered td {
+        padding: 0.5rem;
+    }
+    
+    .investment-details .accordion-button {
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
     }
 }
 
 @media (max-width: 576px) {
     .brand-name {
-        font-size: 4.5rem;  /* Zwiększone z 2.5rem */
+        font-size: 4.5rem;
         letter-spacing: 3px;
     }
     
     .brand-tagline {
-        font-size: 2rem;  /* Zwiększone z 1.2rem */
+        font-size: 2rem;
     }
+    
     .modal-gallery {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }

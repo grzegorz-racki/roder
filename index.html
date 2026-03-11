@@ -495,21 +495,23 @@ const investment = {
   
   <p>Ten wyjątkowy dom to idealne połączenie komfortu, estetyki i praktyczności, które spełni oczekiwania nawet najbardziej wymagających klientów. Jeśli szukasz miejsca, w którym poczujesz się naprawdę jak w domu – ta inwestycja jest dla Ciebie!</p>`,
   
-  // Ceny i oferty
+  // Ceny i oferty - z obsługą statusu sprzedaży
   offers: [
     {
       segment: "A (lewy)",
       powierzchnia: "137,13 m²",
       dzialka: "300 m²",
       cena_za_m2: "10.931,23 zł",
-      cena: "1.499.000,00 zł"
+      cena: "1.499.000,00 zł",
+      status: "dostępny" // "dostępny" lub "sprzedany" lub "rezerwacja"
     },
     {
       segment: "B (prawy)",
       powierzchnia: "137,13 m²",
       dzialka: "300 m²",
       cena_za_m2: "10.931,23 zł",
-      cena: "1.499.000,00 zł"
+      cena: "1.499.000,00 zł",
+      status: "dostępny" // "dostępny" lub "sprzedany" lub "rezerwacja"
     }
   ],
   
@@ -650,33 +652,211 @@ function showDetails() {
   
   console.log("✅ Znaleziono elementy modala");
   
-  // Tabela ofert
-  let offersTable = `
+  // Tabela ofert z obsługą statusu sprzedaży
+    let offersTable = `
     <h6 class="mt-4">Dostępne segmenty</h6>
-    <table class="table table-bordered table-striped">
-      <thead class="table-dark">
-        <tr>
-          <th>Segment</th>
-          <th>Pow. użytkowa</th>
-          <th>Działka</th>
-          <th>Cena za m²</th>
-          <th>Cena całkowita</th>
-        </tr>
-      </thead>
-      <tbody>
-  `;
-  inv.offers.forEach(offer => {
-    offersTable += `
-      <tr>
-        <td><strong>Segment ${offer.segment}</strong></td>
-        <td>${offer.powierzchnia}</td>
-        <td>${offer.dzialka}</td>
-        <td>${offer.cena_za_m2}</td>
-        <td><strong>${offer.cena}</strong></td>
-      </tr>
+
+    <style>
+
+    .table-offers td,
+    .table-offers th{
+      vertical-align:middle;
+    }
+
+    /* ===============================
+    ANIMACJA PULSOWANIA DLA WSZYSTKICH STATUSÓW
+    =============================== */
+
+    @keyframes statusPulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0,0,0,0.3);
+      }
+      70% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 6px rgba(0,0,0,0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0,0,0,0);
+      }
+    }
+
+    /* ===============================
+    SPRZEDANY - czerwony
+    =============================== */
+
+    .sold-row{
+      background-color: rgba(220,53,69,0.05) !important;
+    }
+
+    .sold-row td{
+      text-decoration-line: line-through !important;
+      text-decoration-color: #dc3545 !important;
+      text-decoration-thickness: 2px !important;
+    }
+
+    .sold-row td strong{
+      text-decoration-line: line-through !important;
+      text-decoration-color: #dc3545 !important;
+    }
+
+    .sold-row td{
+      color:#6c757d;
+    }
+
+    .badge-sold{
+      background:#dc3545;
+    }
+
+    /* ===============================
+    REZERWACJA - pomarańczowy
+    =============================== */
+
+    .reserved-row{
+      background-color: rgba(255,193,7,0.08);
+    }
+
+    .badge-reserved{
+      background:#ffc107;
+      color:#000;
+    }
+
+    /* ===============================
+    DOSTĘPNY - zielony
+    =============================== */
+
+    .available-row{
+      background-color: rgba(40,167,69,0.05);
+    }
+
+    .badge-available{
+      background:#28a745;
+    }
+
+    /* ===============================
+    WSPÓLNE STYLE DLA BADGE - WERSJA W LINII
+    =============================== */
+
+    .badge-container{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .status-badge{
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+      color: #fff;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      animation: statusPulse 2s infinite;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+
+    /* Opcjonalnie - jeśli chcesz żeby badge był wyśrodkowany z tekstem */
+    .badge-container strong {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .status-badge:hover{
+      transform: scale(1.1);
+      filter: brightness(1.1);
+      transition: all 0.3s ease;
+    }
+
+    .price-sold{
+      font-weight:600;
+      color:#dc3545 !important;
+    }
+
+    /* Dodatkowy styl dla dostępnych */
+    .available-text{
+      color:#28a745;
+      font-weight:600;
+    }
+
+    </style>
+
+    <table class="table table-bordered table-striped table-offers">
+
+    <thead class="table-dark">
+    <tr>
+    <th>Segment</th>
+    <th>Pow. użytkowa</th>
+    <th>Działka</th>
+    <th>Cena za m²</th>
+    <th>Cena całkowita</th>
+    </tr>
+    </thead>
+
+    <tbody>
     `;
-  });
-  offersTable += '</tbody></table>';
+
+
+// GENEROWANIE WIERSZY
+
+inv.offers.forEach(offer => {
+
+  const status = (offer.status || "").toLowerCase().trim();
+
+  const isSold = status.includes("sprzed");
+  const isReserved = status.includes("rezerw");
+  const isAvailable = status.includes("dostępny") || status === "";
+
+  let rowClass = "";
+  let badge = "";
+  let priceClass = "";
+
+  if(isSold){
+    rowClass = "sold-row";
+    priceClass = "price-sold";
+    badge = `<span class="status-badge badge-sold">SPRZEDANY</span>`;
+  }
+  else if(isReserved){
+    rowClass = "reserved-row";
+    badge = `<span class="status-badge badge-reserved">REZERWACJA</span>`;
+  }
+  else if(isAvailable){
+    rowClass = "available-row";
+    badge = `<span class="status-badge badge-available">DOSTĘPNY</span>`;
+  }
+
+  offersTable += `
+<tr class="${rowClass}">
+
+<td>
+<span class="badge-container">
+<strong>Segment ${offer.segment}</strong>
+${badge}
+</span>
+</td>
+
+<td>${offer.powierzchnia}</td>
+<td>${offer.dzialka}</td>
+<td>${offer.cena_za_m2}</td>
+
+<td class="${priceClass}">
+<strong>${offer.cena}</strong>
+</td>
+
+</tr>
+`;
+
+});
+
+offersTable += `
+</tbody>
+</table>
+`;
   
   // Szybkie dane
   let quickTable = '<h6 class="mt-4">Podstawowe informacje</h6><table class="table table-striped">';
@@ -864,9 +1044,12 @@ function showDetails() {
   
   // Mapa
   const map = inv.mapEmbed ? `<iframe class="modal-map" src="${inv.mapEmbed}" loading="lazy" title="Mapa lokalizacji"></iframe>` : '';
-  
+
   // PDF link
-  const pdfLink = inv.pdf ? `<a href="${inv.pdf}" class="btn btn-primary mt-3" target="_blank"><i class="fas fa-download"></i> Pobierz prospekt PDF</a>` : '';
+  const pdfLink = inv.pdf ? `<div class="mt-3"><a href="${inv.pdf}" class="btn btn-primary" target="_blank"><i class="fas fa-download"></i> Pobierz prospekt PDF</a></div>` : '';
+  
+  // Link do Otodom
+  const otodomLink = `<div class="mt-2"><a href="https://www.otodom.pl/pl/oferta/krzekowo-twoj-wymarzony-dom-ID4A0FW?utm_campaign=share_button_1772354806306" class="btn btn-outline-warning" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Otodom</a></div>`;
   
   // Złożenie treści
   const content = `
@@ -884,6 +1067,7 @@ function showDetails() {
       ${map}
       <div class="text-center mt-4">
         ${pdfLink}
+        ${otodomLink}
       </div>
     </div>
   `;
