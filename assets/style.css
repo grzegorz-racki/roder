@@ -278,7 +278,7 @@ a:active {
     color: var(--text-light);
 }
 
-/* Statusy inwestycji - POWIĘKSZONE */
+/* Statusy inwestycji */
 .investment-badge {
     display: inline-block;
     padding: 4px 10px;
