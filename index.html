@@ -225,7 +225,7 @@ Stawiamy na jakość, bezpieczeństwo i indywidualne podejście do klienta.
               
               <!-- Przyciski akcji -->
               <div class="mt-3 d-flex gap-2">
-                <button class="btn btn-primary btn-sm" onclick="showInvestmentDetails(0)">
+                <button class="btn btn-primary btn-sm" onclick="showInvestmentDetails(1)">
                 Zobacz szczegóły
                 </button>
                 <a href="https://www.otodom.pl/pl/oferta/krzekowo-twoj-wymarzony-dom-ID4A0FW?utm_campaign=share_button_1772354806306" 
@@ -394,10 +394,11 @@ Stawiamy na jakość, bezpieczeństwo i indywidualne podejście do klienta.
 <script>
 // ===== DANE INWESTYCJI =====
 
-const investments = [
+const investments = {
 
-  // INWESTYCJA 0 (Żyzna Krzekowo)
-  {
+  // INWESTYCJA 1 – Żyzna Krzekowo
+  // Przycisk: onclick="showInvestmentDetails(1)"
+  1: {
     id: "zyzna-krzekowo",
     title: "Żyzna Krzekowo - Wyjątkowa lokalizacja",
     status: "aktualna",
@@ -428,13 +429,13 @@ const investments = [
     },
 
     roomsGround: [
-      { name: "Wiatrołap",                area: "5,75 m²",  description: "Wejście do domu prowadzi przez przestronny wiatrołap, który zapewnia miejsce na szafę lub zabudowę na odzież wierzchnią i obuwie. Chroni wnętrze przed utratą ciepła." },
-      { name: "Kuchnia",                  area: "9,15 m²",  description: "Funkcjonalna, z bezpośrednim dostępem do strefy dziennej. Układ kuchni umożliwia montaż zarówno zabudowy w kształcie litery 'L', jak i wyspy kuchennej." },
-      { name: "Salon z jadalnią",         area: "22,56 m²", description: "Przestrzeń dzienna jest otwarta, jasna i ustawna. Dzięki połączeniu z kuchnią tworzy dużą, komfortową strefę sprzyjającą spędzaniu czasu z rodziną i przyjmowaniu gości." },
-      { name: "Łazienka",                 area: "4,11 m²",  description: "Niewielka, lecz w pełni funkcjonalna, z prysznicem i toaletą." },
-      { name: "Pomieszczenie gospodarcze",area: "8,13 m²",  description: "Idealne na pralnię, kotłownię lub przechowywanie sprzętów domowych i ogrodowych." },
-      { name: "Komunikacja",              area: "4,82 m²",  description: "Dobrze zaplanowana, łącząca wszystkie pomieszczenia w spójną całość." },
-      { name: "Garaż",                    area: "15,43 m²", description: "Jednostanowiskowy, z wygodnym dojazdem i przejściem bezpośrednio do części mieszkalnej." }
+      { name: "Wiatrołap",                 area: "5,75 m²",  description: "Wejście do domu prowadzi przez przestronny wiatrołap, który zapewnia miejsce na szafę lub zabudowę na odzież wierzchnią i obuwie. Chroni wnętrze przed utratą ciepła." },
+      { name: "Kuchnia",                   area: "9,15 m²",  description: "Funkcjonalna, z bezpośrednim dostępem do strefy dziennej. Układ kuchni umożliwia montaż zarówno zabudowy w kształcie litery 'L', jak i wyspy kuchennej." },
+      { name: "Salon z jadalnią",          area: "22,56 m²", description: "Przestrzeń dzienna jest otwarta, jasna i ustawna. Dzięki połączeniu z kuchnią tworzy dużą, komfortową strefę sprzyjającą spędzaniu czasu z rodziną i przyjmowaniu gości." },
+      { name: "Łazienka",                  area: "4,11 m²",  description: "Niewielka, lecz w pełni funkcjonalna, z prysznicem i toaletą." },
+      { name: "Pomieszczenie gospodarcze", area: "8,13 m²",  description: "Idealne na pralnię, kotłownię lub przechowywanie sprzętów domowych i ogrodowych." },
+      { name: "Komunikacja",               area: "4,82 m²",  description: "Dobrze zaplanowana, łącząca wszystkie pomieszczenia w spójną całość." },
+      { name: "Garaż",                     area: "15,43 m²", description: "Jednostanowiskowy, z wygodnym dojazdem i przejściem bezpośrednio do części mieszkalnej." }
     ],
 
     advantages: [
@@ -517,15 +518,14 @@ const investments = [
     ],
 
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2375.892274398322!2d14.478129448715602!3d53.45251191716858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNTPCsDI3JzA5LjAiTiAxNMKwMjgnNDcuNyJF!5e0!3m2!1spl!2snl!4v1772274054624!5m2!1spl!2snl",
-    pdf:      "assets/inwestycje/inwestycja1/prospekt.pdf",
-    otodom:   "https://www.otodom.pl/pl/oferta/krzekowo-twoj-wymarzony-dom-ID4A0FW?utm_campaign=share_button_1772354806306"
-  }
+    pdf:    "assets/inwestycje/inwestycja1/prospekt.pdf",
+    otodom: "https://www.otodom.pl/pl/oferta/krzekowo-twoj-wymarzony-dom-ID4A0FW?utm_campaign=share_button_1772354806306"
+  },
 
-  // NOWA INWESTYCJA – skopiuj blok powyżej tutaj i zmień dane.
-  // Pamiętaj o przecinku po zamykającym } poprzedniego obiektu.
-  // W przycisku HTML użyj: onclick="showInvestmentDetails(1)"
+  // INWESTYCJA 2 – skopiuj blok powyżej, zmień klucz na 2: i zaktualizuj dane.
+  // Przycisk: onclick="showInvestmentDetails(2)"
 
-];
+};
 
 
 // ===== MODAL INWESTYCJI =====
