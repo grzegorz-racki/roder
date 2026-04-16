@@ -225,7 +225,7 @@ Stawiamy na jakość, bezpieczeństwo i indywidualne podejście do klienta.
               
               <!-- Przyciski akcji -->
               <div class="mt-3 d-flex gap-2">
-                <button class="btn btn-primary btn-sm" onclick="showInvestmentDetails()">
+                <button class="btn btn-primary btn-sm" onclick="showInvestmentDetails(0)">
                 Zobacz szczegóły
                 </button>
                 <a href="https://www.otodom.pl/pl/oferta/krzekowo-twoj-wymarzony-dom-ID4A0FW?utm_campaign=share_button_1772354806306" 
@@ -316,21 +316,6 @@ Stawiamy na jakość, bezpieczeństwo i indywidualne podejście do klienta.
         </div>
       </div>
     </div> 
-      
-    <!-- MODAL (okno) ze szczegółami inwestycji -->
-    <div class="modal fade" id="investmentModal" tabindex="-1">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalTitle">Szczegóły inwestycji</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body" id="modalBody">
-            <!-- Treść będzie ładowana dynamicznie -->
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -407,1128 +392,443 @@ Stawiamy na jakość, bezpieczeństwo i indywidualne podejście do klienta.
 <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+// ===== DANE INWESTYCJI =====
 
-// ===== AOS INITIALIZATION =====
-AOS.init({
-    duration: 800,
-    easing: 'ease-in-out',
-    once: true,
-    mirror: false,
-    offset: 50
-});
+const investments = [
 
-// ===== NAVBAR SCROLL EFFECT Z THROTTLE =====
-const navbar = document.getElementById('mainNav');
-let ticking = false;
+  // INWESTYCJA 0 (Żyzna Krzekowo)
+  {
+    id: "zyzna-krzekowo",
+    title: "Żyzna Krzekowo - Wyjątkowa lokalizacja",
+    status: "aktualna",
 
-window.addEventListener('scroll', function() {
-    if (!ticking) {
-        window.requestAnimationFrame(function() {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
+    description: `<strong>Wyjątkowa lokalizacja – idealne miejsce na Twój wymarzony dom</strong>
+    <p>Oferujemy nieruchomość położoną w cichej i kameralnej okolicy, która łączy w sobie spokój otoczenia z doskonałą dostępnością do centrum miasta. Brak korków oraz świetna komunikacja zapewniają szybki i komfortowy dojazd do pracy, szkoły czy na zakupy.</p>
+    <p>W najbliższym otoczeniu znajdują się wszystkie niezbędne punkty usługowe – sklepy, szkoły, placówki medyczne – co gwarantuje wygodę codziennego życia. Dodatkowym atutem są tereny zielone, park oraz ścieżki spacerowe i rekreacyjne, idealne do aktywnego wypoczynku i relaksu na świeżym powietrzu.</p>
+    <p>Okolica charakteryzuje się doskonałym sąsiedztwem i przyjazną atmosferą, co czyni to miejsce idealnym do zamieszkania zarówno dla rodzin z dziećmi, jak i osób szukających spokoju i wytchnienia po dniu pełnym obowiązków.</p>
+    <p>To doskonała propozycja dla osób, które marzą o życiu blisko natury, nie rezygnując przy tym z udogodnień miejskiego stylu życia.</p>
+    <p>Prezentujemy nowoczesny, elegancki dom w zabudowie bliźniaczej, położony w świetnej lokalizacji. Dom został wybudowany z najwyższej klasy materiałów, co gwarantuje trwałość, energooszczędność oraz nowoczesny wygląd na lata. Projekt został starannie przemyślany, aby zapewnić funkcjonalny rozkład pomieszczeń na powierzchni użytkowej prawie 140 m², co daje przestrzeń zarówno do życia codziennego, jak i do przyjmowania gości.</p>
+    <p>Do dyspozycji mieszkańców jest garaż w bryle budynku oraz dodatkowe miejsce postojowe przed domem.</p>
+    <p>Ten wyjątkowy dom to idealne połączenie komfortu, estetyki i praktyczności, które spełni oczekiwania nawet najbardziej wymagających klientów. Jeśli szukasz miejsca, w którym poczujesz się naprawdę jak w domu – ta inwestycja jest dla Ciebie!</p>`,
 
-// ===== MENU HAMBURGER (BOOTSTRAP 5) =====
-const navbarCollapse = document.getElementById('navbarNav');
-const navbarToggler = document.querySelector('.navbar-toggler');
+    offers: [
+      { segment: "A (lewy)",  powierzchnia: "137,13 m²", dzialka: "300 m²", cena_za_m2: "10.931,23 zł", cena: "1.499.000,00 zł", status: "dostępny" },
+      { segment: "B (prawy)", powierzchnia: "137,13 m²", dzialka: "300 m²", cena_za_m2: "10.931,23 zł", cena: "1.499.000,00 zł", status: "dostępny" }
+    ],
 
-if (navbarCollapse && typeof bootstrap !== "undefined") {
-    const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse, {
-        toggle: false
-    });
-
-    const navLinks = navbarCollapse.querySelectorAll('.nav-link');
-
-    navLinks.forEach(function(link){
-        link.addEventListener('click', function(){
-            if (navbarCollapse.classList.contains('show')) {
-                bsCollapse.hide();
-            }
-        });
-    });
-
-    document.addEventListener('click', function(e){
-        const clickInsideMenu = navbarCollapse.contains(e.target);
-        const clickOnToggler = navbarToggler && navbarToggler.contains(e.target);
-        const clickInsideCookie = e.target.closest('#cookiePopup');
-
-        if (clickInsideMenu || clickOnToggler || clickInsideCookie) return;
-
-        if (navbarCollapse.classList.contains('show')) {
-            bsCollapse.hide();
-        }
-    });
-}
-
-// ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-});
-    
-// ===== COOKIES =====
-function openCookiePopup(){
-    const popup = document.getElementById('cookiePopup');
-    if(popup) {
-        popup.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeCookiePopup(){
-    const popup = document.getElementById('cookiePopup');
-    if(popup) {
-        popup.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-}
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeCookiePopup();
-    }
-});
-    
-
-
-// ===== ZOBACZ SZCZEGOLY - INWESTYCJA 1 =====
-// Dane inwestycji - ŻYZNA KRZEKOWO
-const investment = {
-  id: "zyzna-krzekowo",
-  title: "Żyzna Krzekowo - Wyjątkowa lokalizacja",
-  status: "aktualna",
-  
-  // Główny opis
-  description: `<strong>Wyjątkowa lokalizacja – idealne miejsce na Twój wymarzony dom</strong>
-  
-  <p>Oferujemy nieruchomość położoną w cichej i kameralnej okolicy, która łączy w sobie spokój otoczenia z doskonałą dostępnością do centrum miasta. Brak korków oraz świetna komunikacja zapewniają szybki i komfortowy dojazd do pracy, szkoły czy na zakupy.</p>
-  
-  <p>W najbliższym otoczeniu znajdują się wszystkie niezbędne punkty usługowe – sklepy, szkoły, placówki medyczne – co gwarantuje wygodę codziennego życia. Dodatkowym atutem są tereny zielone, park oraz ścieżki spacerowe i rekreacyjne, idealne do aktywnego wypoczynku i relaksu na świeżym powietrzu.</p>
-  
-  <p>Okolica charakteryzuje się doskonałym sąsiedztwem i przyjazną atmosferą, co czyni to miejsce idealnym do zamieszkania zarówno dla rodzin z dziećmi, jak i osób szukających spokoju i wytchnienia po dniu pełnym obowiązków.</p>
-  
-  <p>To doskonała propozycja dla osób, które marzą o życiu blisko natury, nie rezygnując przy tym z udogodnień miejskiego stylu życia.</p>
-  
-  <p>Prezentujemy nowoczesny, elegancki dom w zabudowie bliźniaczej, położony w świetnej lokalizacji. Dom został wybudowany z najwyższej klasy materiałów, co gwarantuje trwałość, energooszczędność oraz nowoczesny wygląd na lata. Projekt został starannie przemyślany, aby zapewnić funkcjonalny rozkład pomieszczeń na powierzchni użytkowej prawie 140 m², co daje przestrzeń zarówno do życia codziennego, jak i do przyjmowania gości.</p>
-  
-  <p>Do dyspozycji mieszkańców jest garaż w bryle budynku oraz dodatkowe miejsce postojowe przed domem.</p>
-  
-  <p>Ten wyjątkowy dom to idealne połączenie komfortu, estetyki i praktyczności, które spełni oczekiwania nawet najbardziej wymagających klientów. Jeśli szukasz miejsca, w którym poczujesz się naprawdę jak w domu – ta inwestycja jest dla Ciebie!</p>`,
-  
-  // Ceny i oferty - z obsługą statusu sprzedaży
-  offers: [
-    {
-      segment: "A (lewy)",
-      powierzchnia: "137,13 m²",
-      dzialka: "300 m²",
-      cena_za_m2: "10.931,23 zł",
-      cena: "1.499.000,00 zł",
-      status: "dostępny" // "dostępny" lub "sprzedany" lub "rezerwacja"
+    quickDetails: {
+      "Lokalizacja":           "ul. Żyzna, Krzekowo, Szczecin",
+      "Powierzchnia użytkowa": "137,13 m²",
+      "Powierzchnia działki":  "300 m²",
+      "Liczba pokoi":          "5",
+      "Rodzaj zabudowy":       "dom bliźniak (segment)",
+      "Stan":                  "do wykończenia",
+      "Rynek":                 "pierwotny",
+      "Dostępne segmenty":     "2 (lewy i prawy)"
     },
-    {
-      segment: "B (prawy)",
-      powierzchnia: "137,13 m²",
-      dzialka: "300 m²",
-      cena_za_m2: "10.931,23 zł",
-      cena: "1.499.000,00 zł",
-      status: "dostępny" // "dostępny" lub "sprzedany" lub "rezerwacja"
-    }
-  ],
-  
-  // Podstawowe dane (szybki podgląd)
-  quickDetails: {
-    "Lokalizacja": "ul. Żyzna, Krzekowo, Szczecin",
-    "Powierzchnia użytkowa": "137,13 m²",
-    "Powierzchnia działki": "300 m²",
-    "Liczba pokoi": "5",
-    "Rodzaj zabudowy": "dom bliźniak (segment)",
-    "Stan": "do wykończenia",
-    "Rynek": "pierwotny",
-    "Dostępne segmenty": "2 (lewy i prawy)"
-  },
-  
-  // Opis pomieszczeń (parter)
-  roomsGround: [
-    { name: "Wiatrołap", area: "5,75 m²", description: "Wejście do domu prowadzi przez przestronny wiatrołap, który zapewnia miejsce na szafę lub zabudowę na odzież wierzchnią i obuwie. Chroni wnętrze przed utratą ciepła." },
-    { name: "Kuchnia", area: "9,15 m²", description: "Funkcjonalna, z bezpośrednim dostępem do strefy dziennej. Układ kuchni umożliwia montaż zarówno zabudowy w kształcie litery 'L', jak i wyspy kuchennej." },
-    { name: "Salon z jadalnią", area: "22,56 m²", description: "Przestrzeń dzienna jest otwarta, jasna i ustawna. Dzięki połączeniu z kuchnią tworzy dużą, komfortową strefę sprzyjającą spędzaniu czasu z rodziną i przyjmowaniu gości." },
-    { name: "Łazienka", area: "4,11 m²", description: "Niewielka, lecz w pełni funkcjonalna, z prysznicem i toaletą." },
-    { name: "Pomieszczenie gospodarcze", area: "8,13 m²", description: "Idealne na pralnię, kotłownię lub przechowywanie sprzętów domowych i ogrodowych." },
-    { name: "Komunikacja", area: "4,82 m²", description: "Dobrze zaplanowana, łącząca wszystkie pomieszczenia w spójną całość." },
-    { name: "Garaż", area: "15,43 m²", description: "Jednostanowiskowy, z wygodnym dojazdem i przejściem bezpośrednio do części mieszkalnej." }
-  ],
-  
-  // Zalety układu
-  advantages: [
-    "Otwarta przestrzeń dzienna – połączenie kuchni, jadalni i salonu daje poczucie przestronności i pozwala na elastyczną aranżację wnętrza.",
-    "Dodatkowa toaleta dostępna od strony ogrodu – świetne rozwiązanie szczególnie w sezonie letnim, gdy domownicy spędzają czas w ogrodzie lub na tarasie.",
-    "Duże możliwości aranżacyjne – salon i jadalnia są ustawne, co pozwala na dowolne rozmieszczenie mebli.",
-    "Praktyczne pomieszczenie gospodarcze – miejsce na sprzęty, które inaczej zajmowałyby przestrzeń w domu.",
-    "Bezpośrednie przejście z garażu do domu – wygodne zwłaszcza przy złej pogodzie.",
-    "Funkcjonalny wiatrołap – zapewnia izolację termiczną i miejsce do przechowywania."
-  ],
-  
-  // Standard wykończenia (pogrupowany)
-  standards: [
-    { category: "Fundamenty i konstrukcja", items: [
-      "Ławy i stopy żelbetowe monolityczne",
-      "Ściany fundamentowe z bloczków betonowych",
-      "Ściany konstrukcyjne - bloczki wapienno-piaskowe 18cm",
-      "Strop żelbetowy monolityczny",
-      "Schody żelbetowe monolityczne"
-    ]},
-    { category: "Izolacje i termoizolacja", items: [
-      "Izolacja przeciwwilgociowa ścian fundamentowych KMB",
-      "Termoizolacja ścian fundamentowych EPS hydrofobowy",
-      "Elewacja EPS 20cm, na ścianach skrajnych wełna 20cm",
-      "Tynk elewacyjny silikonowy + lamele (alu lub kompozyt)"
-    ]},
-    { category: "Dach i wykończenie zewnętrzne", items: [
-      "Konstrukcja dachu - prefabrykowane wiązary dachowe przygotowane pod instalację PV",
-      "Dach pokryty dachówką ceramiczną lub betonową",
-      "Rynny i rury spustowe stalowe",
-      "Podbitka z płyt kompozytowych na ruszcie aluminiowym",
-      "Daszek przed wejściem z płyt kompozytowych na ruszcie aluminiowym"
-    ]},
-    { category: "Okna i stolarka", items: [
-      "Okna PCV, HST aluminiowe",
-      "Brama garażowa segmentowa",
-      "Żaluzje fasadowe we wszystkich oknach, sterowanie radiowe"
-    ]},
-    { category: "Instalacje", items: [
-      "Kanalizacja sanitarna i woda miejska",
-      "Instalacja kanalizacji deszczowej ze zbiornikiem bezodpływowym",
-      "Przyłącze energetyczne i gazowe",
-      "Instalacja wod-kan wraz z cyrkulacją",
-      "Ogrzewanie podłogowe we wszystkich pomieszczeniach",
-      "Podejścia pod grzejniki drabinkowe w łazienkach",
-      "Instalacja elektryczna wraz z białym osprzętem",
-      "Instalacja alarmowa (bez aktywnego osprzętu)",
-      "Przepust pod światłowód",
-      "Kocioł gazowy kondensacyjny jednofunkcyjny z zasobnikiem",
-      "Instalacja wentylacji mechanicznej z wymiennikiem ciepła",
-      "Instalacja klimatyzacji (bez jednostek)"
-    ]},
-    { category: "Wykończenie wnętrz", items: [
-      "Ściany piętra - podwójne GK lub murowane z bloczków wapienno-piaskowych",
-      "Tynki gipsowe",
-      "Na piętrze sufit podwieszany, izolacja stropu nad piętrem wełna mineralna"
-    ]},
-    { category: "Otoczenie", items: [
-      "Ogrodzenie panelowe z siatek zgrzewanych",
-      "Utwardzenia z kostki betonowej na podbudowie z kruszywa",
-      "Teren wyrównany, niezagospodarowany"
-    ]}
-  ],
-  
-  // Wymiary
-  dimensions: {
-    "Wysokość parteru": "295 cm",
-    "Wysokość piętra": "265 cm"
-  },
-  
-  // Galerie
-  gallery: [
-    "assets/inwestycje/inwestycja1/1.webp",
-    "assets/inwestycje/inwestycja1/2.webp",
-    "assets/inwestycje/inwestycja1/3.webp",
-    "assets/inwestycje/inwestycja1/4.webp",
-    "assets/inwestycje/inwestycja1/5.webp",
-    "assets/inwestycje/inwestycja1/6.webp"
-  ],
-  
-  floorPlans: [
-    "assets/inwestycje/inwestycja1/rzut1.webp",
-    "assets/inwestycje/inwestycja1/rzut2.webp",
-    "assets/inwestycje/inwestycja1/rzut3.webp",
-    "assets/inwestycje/inwestycja1/rzut4.webp"
-  ],
-  
-  mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2375.892274398322!2d14.478129448715602!3d53.45251191716858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNTPCsDI3JzA5LjAiTiAxNMKwMjgnNDcuNyJF!5e0!3m2!1spl!2snl!4v1772274054624!5m2!1spl!2snl",
-  
-  pdf: "assets/inwestycje/inwestycja1/prospekt.pdf"
-};
 
-// Funkcja pokazująca szczegóły
-function showDetails() {
-  console.log("🟢 Funkcja showDetails wywołana");
-  
-  const inv = investment;
-  
-  // Sprawdź czy modal istnieje
-  const modalElement = document.getElementById('investmentModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalBody = document.getElementById('modalBody');
-  
-  if (!modalElement) {
-    console.error("🔴 Nie znaleziono elementu modal!");
-    return;
-  }
-  
-  if (!modalTitle || !modalBody) {
-    console.error("🔴 Nie znaleziono elementów tytułu lub treści modala!");
-    return;
-  }
-  
-  console.log("✅ Znaleziono elementy modala");
-  
-  // Tabela ofert z obsługą statusu sprzedaży
-    let offersTable = `
-    <h6 class="mt-4">Dostępne segmenty</h6>
+    roomsGround: [
+      { name: "Wiatrołap",                area: "5,75 m²",  description: "Wejście do domu prowadzi przez przestronny wiatrołap, który zapewnia miejsce na szafę lub zabudowę na odzież wierzchnią i obuwie. Chroni wnętrze przed utratą ciepła." },
+      { name: "Kuchnia",                  area: "9,15 m²",  description: "Funkcjonalna, z bezpośrednim dostępem do strefy dziennej. Układ kuchni umożliwia montaż zarówno zabudowy w kształcie litery 'L', jak i wyspy kuchennej." },
+      { name: "Salon z jadalnią",         area: "22,56 m²", description: "Przestrzeń dzienna jest otwarta, jasna i ustawna. Dzięki połączeniu z kuchnią tworzy dużą, komfortową strefę sprzyjającą spędzaniu czasu z rodziną i przyjmowaniu gości." },
+      { name: "Łazienka",                 area: "4,11 m²",  description: "Niewielka, lecz w pełni funkcjonalna, z prysznicem i toaletą." },
+      { name: "Pomieszczenie gospodarcze",area: "8,13 m²",  description: "Idealne na pralnię, kotłownię lub przechowywanie sprzętów domowych i ogrodowych." },
+      { name: "Komunikacja",              area: "4,82 m²",  description: "Dobrze zaplanowana, łącząca wszystkie pomieszczenia w spójną całość." },
+      { name: "Garaż",                    area: "15,43 m²", description: "Jednostanowiskowy, z wygodnym dojazdem i przejściem bezpośrednio do części mieszkalnej." }
+    ],
 
-    <style>
+    advantages: [
+      "Otwarta przestrzeń dzienna – połączenie kuchni, jadalni i salonu daje poczucie przestronności i pozwala na elastyczną aranżację wnętrza.",
+      "Dodatkowa toaleta dostępna od strony ogrodu – świetne rozwiązanie szczególnie w sezonie letnim, gdy domownicy spędzają czas w ogrodzie lub na tarasie.",
+      "Duże możliwości aranżacyjne – salon i jadalnia są ustawne, co pozwala na dowolne rozmieszczenie mebli.",
+      "Praktyczne pomieszczenie gospodarcze – miejsce na sprzęty, które inaczej zajmowałyby przestrzeń w domu.",
+      "Bezpośrednie przejście z garażu do domu – wygodne zwłaszcza przy złej pogodzie.",
+      "Funkcjonalny wiatrołap – zapewnia izolację termiczną i miejsce do przechowywania."
+    ],
 
-    .table-offers td,
-    .table-offers th{
-      vertical-align:middle;
-    }
+    standards: [
+      { category: "Fundamenty i konstrukcja", items: [
+        "Ławy i stopy żelbetowe monolityczne",
+        "Ściany fundamentowe z bloczków betonowych",
+        "Ściany konstrukcyjne - bloczki wapienno-piaskowe 18cm",
+        "Strop żelbetowy monolityczny",
+        "Schody żelbetowe monolityczne"
+      ]},
+      { category: "Izolacje i termoizolacja", items: [
+        "Izolacja przeciwwilgociowa ścian fundamentowych KMB",
+        "Termoizolacja ścian fundamentowych EPS hydrofobowy",
+        "Elewacja EPS 20cm, na ścianach skrajnych wełna 20cm",
+        "Tynk elewacyjny silikonowy + lamele (alu lub kompozyt)"
+      ]},
+      { category: "Dach i wykończenie zewnętrzne", items: [
+        "Konstrukcja dachu - prefabrykowane wiązary dachowe przygotowane pod instalację PV",
+        "Dach pokryty dachówką ceramiczną lub betonową",
+        "Rynny i rury spustowe stalowe",
+        "Podbitka z płyt kompozytowych na ruszcie aluminiowym",
+        "Daszek przed wejściem z płyt kompozytowych na ruszcie aluminiowym"
+      ]},
+      { category: "Okna i stolarka", items: [
+        "Okna PCV, HST aluminiowe",
+        "Brama garażowa segmentowa",
+        "Żaluzje fasadowe we wszystkich oknach, sterowanie radiowe"
+      ]},
+      { category: "Instalacje", items: [
+        "Kanalizacja sanitarna i woda miejska",
+        "Instalacja kanalizacji deszczowej ze zbiornikiem bezodpływowym",
+        "Przyłącze energetyczne i gazowe",
+        "Instalacja wod-kan wraz z cyrkulacją",
+        "Ogrzewanie podłogowe we wszystkich pomieszczeniach",
+        "Podejścia pod grzejniki drabinkowe w łazienkach",
+        "Instalacja elektryczna wraz z białym osprzętem",
+        "Instalacja alarmowa (bez aktywnego osprzętu)",
+        "Przepust pod światłowód",
+        "Kocioł gazowy kondensacyjny jednofunkcyjny z zasobnikiem",
+        "Instalacja wentylacji mechanicznej z wymiennikiem ciepła",
+        "Instalacja klimatyzacji (bez jednostek)"
+      ]},
+      { category: "Wykończenie wnętrz", items: [
+        "Ściany piętra - podwójne GK lub murowane z bloczków wapienno-piaskowych",
+        "Tynki gipsowe",
+        "Na piętrze sufit podwieszany, izolacja stropu nad piętrem wełna mineralna"
+      ]},
+      { category: "Otoczenie", items: [
+        "Ogrodzenie panelowe z siatek zgrzewanych",
+        "Utwardzenia z kostki betonowej na podbudowie z kruszywa",
+        "Teren wyrównany, niezagospodarowany"
+      ]}
+    ],
 
-    /* ===============================
-    ANIMACJA PULSOWANIA DLA WSZYSTKICH STATUSÓW
-    =============================== */
+    dimensions: { "Wysokość parteru": "295 cm", "Wysokość piętra": "265 cm" },
 
-    @keyframes statusPulse {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(0,0,0,0.3);
-      }
-      70% {
-        transform: scale(1.08);
-        box-shadow: 0 0 0 6px rgba(0,0,0,0);
-      }
-      100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(0,0,0,0);
-      }
-    }
+    gallery: [
+      "assets/inwestycje/inwestycja1/1.webp",
+      "assets/inwestycje/inwestycja1/2.webp",
+      "assets/inwestycje/inwestycja1/3.webp",
+      "assets/inwestycje/inwestycja1/4.webp",
+      "assets/inwestycje/inwestycja1/5.webp",
+      "assets/inwestycje/inwestycja1/6.webp"
+    ],
 
-    /* ===============================
-    SPRZEDANY - czerwony
-    =============================== */
+    floorPlans: [
+      "assets/inwestycje/inwestycja1/rzut1.webp",
+      "assets/inwestycje/inwestycja1/rzut2.webp",
+      "assets/inwestycje/inwestycja1/rzut3.webp",
+      "assets/inwestycje/inwestycja1/rzut4.webp"
+    ],
 
-    .sold-row{
-      background-color: rgba(220,53,69,0.05) !important;
-    }
-
-    .sold-row td{
-      text-decoration-line: line-through !important;
-      text-decoration-color: #dc3545 !important;
-      text-decoration-thickness: 2px !important;
-    }
-
-    .sold-row td strong{
-      text-decoration-line: line-through !important;
-      text-decoration-color: #dc3545 !important;
-    }
-
-    .sold-row td{
-      color:#6c757d;
-    }
-
-    .badge-sold{
-      background:#dc3545;
-    }
-
-    /* ===============================
-    REZERWACJA - pomarańczowy
-    =============================== */
-
-    .reserved-row{
-      background-color: rgba(255,193,7,0.08);
-    }
-
-    .badge-reserved{
-      background:#ffc107;
-      color:#000;
-    }
-
-    /* ===============================
-    DOSTĘPNY - zielony
-    =============================== */
-
-    .available-row{
-      background-color: rgba(40,167,69,0.05);
-    }
-
-    .badge-available{
-      background:#28a745;
-    }
-
-    /* ===============================
-    WSPÓLNE STYLE DLA BADGE - WERSJA W LINII
-    =============================== */
-
-    .badge-container{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .status-badge{
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 12px;
-      color: #fff;
-      letter-spacing: 0.4px;
-      white-space: nowrap;
-      text-transform: uppercase;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      animation: statusPulse 2s infinite;
-      margin-left: 5px;
-      vertical-align: middle;
-    }
-
-    /* Opcjonalnie - jeśli chcesz żeby badge był wyśrodkowany z tekstem */
-    .badge-container strong {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .status-badge:hover{
-      transform: scale(1.1);
-      filter: brightness(1.1);
-      transition: all 0.3s ease;
-    }
-
-    .price-sold{
-      font-weight:600;
-      color:#dc3545 !important;
-    }
-
-    /* Dodatkowy styl dla dostępnych */
-    .available-text{
-      color:#28a745;
-      font-weight:600;
-    }
-
-    </style>
-
-    <table class="table table-bordered table-striped table-offers">
-
-    <thead class="table-dark">
-    <tr>
-    <th>Segment</th>
-    <th>Pow. użytkowa</th>
-    <th>Działka</th>
-    <th>Cena za m²</th>
-    <th>Cena całkowita</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    `;
-
-
-// GENEROWANIE WIERSZY
-
-inv.offers.forEach(offer => {
-
-  const status = (offer.status || "").toLowerCase().trim();
-
-  const isSold = status.includes("sprzed");
-  const isReserved = status.includes("rezerw");
-  const isAvailable = status.includes("dostępny") || status === "";
-
-  let rowClass = "";
-  let badge = "";
-  let priceClass = "";
-
-  if(isSold){
-    rowClass = "sold-row";
-    priceClass = "price-sold";
-    badge = `<span class="status-badge badge-sold">SPRZEDANY</span>`;
-  }
-  else if(isReserved){
-    rowClass = "reserved-row";
-    badge = `<span class="status-badge badge-reserved">REZERWACJA</span>`;
-  }
-  else if(isAvailable){
-    rowClass = "available-row";
-    badge = `<span class="status-badge badge-available">DOSTĘPNY</span>`;
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2375.892274398322!2d14.478129448715602!3d53.45251191716858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNTPCsDI3JzA5LjAiTiAxNMKwMjgnNDcuNyJF!5e0!3m2!1spl!2snl!4v1772274054624!5m2!1spl!2snl",
+    pdf:      "assets/inwestycje/inwestycja1/prospekt.pdf",
+    otodom:   "https://www.otodom.pl/pl/oferta/krzekowo-twoj-wymarzony-dom-ID4A0FW?utm_campaign=share_button_1772354806306"
   }
 
-  offersTable += `
-<tr class="${rowClass}">
+  // NOWA INWESTYCJA – skopiuj blok powyżej tutaj i zmień dane.
+  // Pamiętaj o przecinku po zamykającym } poprzedniego obiektu.
+  // W przycisku HTML użyj: onclick="showInvestmentDetails(1)"
 
-<td>
-<span class="badge-container">
-<strong>Segment ${offer.segment}</strong>
-${badge}
-</span>
-</td>
+];
 
-<td>${offer.powierzchnia}</td>
-<td>${offer.dzialka}</td>
-<td>${offer.cena_za_m2}</td>
 
-<td class="${priceClass}">
-<strong>${offer.cena}</strong>
-</td>
+// ===== MODAL INWESTYCJI =====
 
-</tr>
-`;
+function buildModalContent(inv) {
+  const isCompleted = inv.status === "zrealizowana";
 
-});
+  // -- Tabela ofert (tylko dla nieukończonych) --
+  let offersSection = "";
+  if (!isCompleted && inv.offers && inv.offers.length) {
+    let rows = "";
+    inv.offers.forEach(offer => {
+      const s = (offer.status || "").toLowerCase();
+      const isSold     = s.includes("sprzed");
+      const isReserved = s.includes("rezerw");
 
-offersTable += `
-</tbody>
-</table>
-`;
-  
-  // Szybkie dane
-  let quickTable = '<h6 class="mt-4">Podstawowe informacje</h6><table class="table table-striped">';
-  for (const [key, value] of Object.entries(inv.quickDetails)) {
-    quickTable += `<tr><th style="width: 35%">${key}:</th><td>${value}</td></tr>`;
-  }
-  quickTable += '</table>';
-  
-  // Wymiary
-  let dimensionsTable = '<h6 class="mt-4">Wymiary pomieszczeń</h6><table class="table table-striped">';
-  dimensionsTable += `<tr><th style="width: 35%">Wysokość parteru:</th><td>${inv.dimensions["Wysokość parteru"]}</td></tr>`;
-  dimensionsTable += `<tr><th>Wysokość piętra:</th><td>${inv.dimensions["Wysokość piętra"]}</td></tr>`;
-  dimensionsTable += '</table>';
-  
-  // Opis pomieszczeń (parter)
-  let roomsTable = '<h6 class="mt-4">Pomieszczenia na parterze</h6><table class="table table-striped">';
-  roomsTable += '<thead><tr><th>Pomieszczenie</th><th>Pow.</th><th>Opis</th></tr></thead><tbody>';
-  inv.roomsGround.forEach(room => {
-    roomsTable += `<tr><td><strong>${room.name}</strong></td><td>${room.area}</td><td>${room.description}</td></tr>`;
-  });
-  roomsTable += '</tbody></table>';
-  
-  // Zalety
-  let advantages = '<h6 class="mt-4">Zalety układu</h6><ul class="list-group">';
-  inv.advantages.forEach(adv => {
-    advantages += `<li class="list-group-item"><i class="fas fa-check text-success me-2"></i>${adv}</li>`;
-  });
-  advantages += '</ul>';
-  
-  // ===== STANDARD WYKOŃCZENIA Z EFEKTAMI PŁYNNEGO PRZEJŚCIA =====
-  let standardHtml = `
-    <h6 class="mt-4">Standard wykończenia</h6>
-    <style>
-      /* Płynne przejścia dla akordeonu */
-      .accordion-button {
-        transition: all 0.3s ease;
-      }
-      
-      .accordion-button:not(.collapsed) {
-        background: linear-gradient(135deg, var(--brand-color, #1A2F50), var(--brand-light, #2C3E6B));
-        color: white;
-        box-shadow: 0 5px 15px rgba(26,47,80,0.2);
-      }
-      
-      .accordion-button.collapsed {
-        background: #f8f9fa;
-        color: var(--brand-color, #1A2F50);
-      }
-      
-      .accordion-button::after {
-        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      }
-      
-      .accordion-collapse {
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      
-      .accordion-body {
-        animation: fadeInContent 0.5s ease;
-        background: linear-gradient(135deg, #ffffff, #fafbfc);
-        border-radius: 0 0 10px 10px;
-      }
-      
-      @keyframes fadeInContent {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      
-      .accordion-item {
-        border: none;
-        margin-bottom: 12px;
-        border-radius: 12px !important;
-        overflow: hidden;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
-      }
-      
-      .accordion-item:hover {
-        box-shadow: 0 5px 20px rgba(26,47,80,0.15);
-        transform: translateY(-2px);
-      }
-      
-      .standard-list-item {
-        padding: 8px 12px;
-        margin: 4px 0;
-        background: white;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        list-style: none;
-        border-left: 3px solid transparent;
-      }
-      
-      .standard-list-item:hover {
-        transform: translateX(8px);
-        background: linear-gradient(135deg, #ffffff, #f0f3f7);
-        border-left: 3px solid var(--brand-color, #1A2F50);
-        box-shadow: 0 2px 8px rgba(26,47,80,0.1);
-      }
-      
-      .standard-list-item i {
-        transition: all 0.3s ease;
-        color: var(--brand-color, #1A2F50);
-      }
-      
-      .standard-list-item:hover i {
-        transform: scale(1.2) rotate(5deg);
-        color: var(--brand-light, #2C3E6B);
-      }
-    </style>
-    <div class="accordion" id="standardAccordion">
-  `;
-  
-  inv.standards.forEach((category, index) => {
-    const collapseId = `collapse${index}`;
-    const headingId = `heading${index}`;
-    
-    standardHtml += `
-      <div class="accordion-item" data-aos="fade-up" data-aos-delay="${index * 50}">
-        <h2 class="accordion-header" id="${headingId}">
-          <button class="accordion-button ${index > 0 ? 'collapsed' : ''}" 
-                  type="button" 
-                  data-bs-toggle="collapse" 
-                  data-bs-target="#${collapseId}"
-                  aria-expanded="${index === 0 ? 'true' : 'false'}"
-                  aria-controls="${collapseId}">
-            <i class="fas fa-circle me-2" style="font-size: 0.6rem;"></i>
-            ${category.category}
-            <span class="badge bg-light text-dark ms-2">${category.items.length}</span>
-          </button>
-        </h2>
-        <div id="${collapseId}" 
-             class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
-             aria-labelledby="${headingId}"
-             data-bs-parent="#standardAccordion">
-          <div class="accordion-body">
-            <ul class="list-unstyled mb-0">
-    `;
-    
-    category.items.forEach((item, itemIndex) => {
-      standardHtml += `
-        <li class="standard-list-item" 
-            style="animation: fadeInContent 0.3s ease ${itemIndex * 0.05}s both;">
-          <i class="fas fa-check-circle me-2" style="font-size: 0.9rem;"></i>
-          ${item}
-        </li>
-      `;
+      const rowClass   = isSold ? "sold-row" : isReserved ? "reserved-row" : "available-row";
+      const badgeClass = isSold ? "badge-sold" : isReserved ? "badge-reserved" : "badge-available";
+      const badgeText  = isSold ? "SPRZEDANY"  : isReserved ? "REZERWACJA"    : "DOSTĘPNY";
+      const priceClass = isSold ? "price-sold" : "";
+
+      rows += `
+        <tr class="${rowClass}">
+          <td>
+            <span class="badge-container">
+              <strong>Segment ${offer.segment}</strong>
+              <span class="status-badge ${badgeClass}">${badgeText}</span>
+            </span>
+          </td>
+          <td>${offer.powierzchnia}</td>
+          <td>${offer.dzialka}</td>
+          <td>${offer.cena_za_m2}</td>
+          <td class="${priceClass}"><strong>${offer.cena}</strong></td>
+        </tr>`;
     });
-    
-    standardHtml += `
-            </ul>
-          </div>
-        </div>
-      </div>
-    `;
+
+    offersSection = `
+      <h6 class="mt-4">Dostępne segmenty</h6>
+      <table class="table table-bordered table-striped table-offers">
+        <thead class="table-dark">
+          <tr>
+            <th>Segment</th><th>Pow. użytkowa</th>
+            <th>Działka</th><th>Cena za m²</th><th>Cena całkowita</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  }
+
+  if (isCompleted) {
+    offersSection = `
+      <div class="alert alert-secondary mt-4">
+        <i class="fas fa-check-circle me-2"></i>
+        Inwestycja została zrealizowana w 2026 roku. Wszystkie segmenty zostały sprzedane.
+      </div>`;
+  }
+
+  // -- Tabela quickDetails --
+  let quickRows = "";
+  Object.entries(inv.quickDetails).forEach(([k, v]) => {
+    quickRows += `<tr><th style="width:35%">${k}:</th><td>${v}</td></tr>`;
   });
-  
-  standardHtml += '</div>';
-  // ===== KONIEC STANDARDU Z EFEKTAMI =====
-  
-  // Galeria zdjęć
-  let gallery = '';
-  if (inv.gallery.length > 0) {
-    gallery = '<h6 class="mt-4">Galeria zdjęć</h6><div class="modal-gallery">';
-    inv.gallery.forEach(img => {
-      gallery += `<img src="${img}" onclick="window.open(this.src)" alt="Zdjęcie inwestycji">`;
+
+  // -- Wymiary --
+  let dimRows = "";
+  Object.entries(inv.dimensions).forEach(([k, v]) => {
+    dimRows += `<tr><th style="width:35%">${k}:</th><td>${v}</td></tr>`;
+  });
+
+  // -- Pomieszczenia parter --
+  let roomRows = "";
+  inv.roomsGround.forEach(r => {
+    roomRows += `<tr><td><strong>${r.name}</strong></td><td>${r.area}</td><td>${r.description}</td></tr>`;
+  });
+
+  // -- Zalety --
+  let advantageItems = "";
+  inv.advantages.forEach(a => {
+    advantageItems += `<li class="list-group-item"><i class="fas fa-check text-success me-2"></i>${a}</li>`;
+  });
+
+  // -- Standard wykończenia – akordeon --
+  let accordionItems = "";
+  inv.standards.forEach((cat, i) => {
+    const collapseId = `collapse-${inv.id}-${i}`;
+    const headingId  = `heading-${inv.id}-${i}`;
+    const isFirst    = i === 0;
+
+    let listItems = "";
+    cat.items.forEach((item, j) => {
+      listItems += `
+        <li class="standard-list-item"
+            style="animation: fadeInContent 0.3s ease ${j * 0.05}s both;">
+          <i class="fas fa-check-circle me-2"></i>${item}
+        </li>`;
     });
-    gallery += '</div>';
-  }
-  
-  // Rzuty
-  let floorPlans = '';
-  if (inv.floorPlans.length > 0) {
-    floorPlans = '<h6 class="mt-4">Rzuty</h6><div class="modal-gallery">';
-    inv.floorPlans.forEach(img => {
-      floorPlans += `<img src="${img}" onclick="window.open(this.src)" alt="Rzut">`;
-    });
-    floorPlans += '</div>';
-  }
-  
-  // Mapa
-  const map = inv.mapEmbed ? `<iframe class="modal-map" src="${inv.mapEmbed}" loading="lazy" title="Mapa lokalizacji"></iframe>` : '';
 
-  // PDF link
-  const pdfLink = inv.pdf ? `<div class="mt-3"><a href="${inv.pdf}" class="btn btn-primary" target="_blank"><i class="fas fa-download"></i> Pobierz prospekt PDF</a></div>` : '';
-  
-  // Link do Otodom
-  const otodomLink = `<div class="mt-2"><a href="https://www.otodom.pl/pl/oferta/krzekowo-twoj-wymarzony-dom-ID4A0FW?utm_campaign=share_button_1772354806306" class="btn btn-outline-warning" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Otodom</a></div>`;
-  
-  // Złożenie treści
-  const content = `
-    <div class="investment-details">
-      <p class="lead">${inv.description}</p>
-      
-      ${offersTable}
-      ${quickTable}
-      ${dimensionsTable}
-      ${roomsTable}
-      ${advantages}
-      ${standardHtml}
-      ${gallery}
-      ${floorPlans}
-      ${map}
-      <div class="text-center mt-4">
-        ${pdfLink}
-        ${otodomLink}
-      </div>
-    </div>
-  `;
-  
-  // Ustawienie tytułu i treści
-  modalTitle.textContent = inv.title;
-  modalBody.innerHTML = content;
-  
-  console.log("✅ Treść modala ustawiona");
-  
-  // Pokaż modal
-  try {
-    if (typeof bootstrap === 'undefined') {
-      console.error("🔴 Bootstrap nie jest załadowany!");
-      return;
-    }
-    
-    console.log("✅ Bootstrap załadowany, tworzę instancję modala");
-    
-    const modal = new bootstrap.Modal(modalElement);
-    modal.show();
-    
-    console.log("✅ Modal powinien być widoczny");
-    
-    // Dodatkowo - odśwież AOS dla nowych elementów
-    if (typeof AOS !== 'undefined') {
-      setTimeout(() => {
-        AOS.refresh();
-        console.log("✅ AOS odświeżony");
-      }, 500);
-    }
-  } catch (error) {
-    console.error("🔴 Błąd podczas pokazywania modala:", error);
-  }
-}
-
-// Funkcja dla przycisku "Zobacz szczegóły"
-function showInvestmentDetails() {
-  console.log("🟢 Kliknięto przycisk Zobacz szczegóły");
-  showDetails();
-}
-
-// Obsługa kliknięcia poza modalem
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('modal')) {
-    try {
-      const modal = bootstrap.Modal.getInstance(e.target);
-      if (modal) {
-        modal.hide();
-        console.log("✅ Modal zamknięty kliknięciem poza");
-      }
-    } catch (error) {
-      console.error("🔴 Błąd przy zamykaniu modala:", error);
-    }
-  }
-});
-
-// Test na starcie
-document.addEventListener('DOMContentLoaded', function() {
-  const modalElement = document.getElementById('investmentModal');
-  if (modalElement) {
-    console.log("✅ Modal znaleziony na stronie");
-  } else {
-    console.error("🔴 Modal NIE istnieje na stronie!");
-  }
-  
-  if (typeof bootstrap !== 'undefined') {
-    console.log("✅ Bootstrap załadowany");
-  } else {
-    console.error("🔴 Bootstrap NIE jest załadowany!");
-  }
-});
-    
-// ===== ZOBACZ SZCZEGOLY - INWESTYCJA 3 (ZREALIZOWANA - TE SAME DANE) =====
-// Dane inwestycji - ŻYZNA KRZEKOWO (zrealizowana)
-const completedInvestment = {
-  id: "zyzna-krzekowo-zrealizowana",
-  title: "Krzekowo - Żyzna (inwestycja zrealizowana)",
-  status: "zrealizowana",
-  
-  // Główny opis (ten sam co w Inwestycji 1, ale z informacją o zakończeniu)
-  description: `<strong>Zrealizowana inwestycja: Krzekowo - Żyzna</strong>
-  
-  <p>Inwestycja została ukończona w 2026 roku. Wszystkie segmenty zostały sprzedane.</p>
-  
-  <p>Było to kameralne osiedle domów bliźniaczych w malowniczej części Krzekowa, które łączyło w sobie spokój otoczenia z doskonałą dostępnością do centrum miasta. Brak korków oraz świetna komunikacja zapewniały szybki i komfortowy dojazd do pracy, szkoły czy na zakupy.</p>
-  
-  <p>W najbliższym otoczeniu znajdowały się wszystkie niezbędne punkty usługowe – sklepy, szkoły, placówki medyczne – co gwarantowało wygodę codziennego życia. Dodatkowym atutem były tereny zielone, park oraz ścieżki spacerowe i rekreacyjne, idealne do aktywnego wypoczynku i relaksu na świeżym powietrzu.</p>
-  
-  <p>Okolica charakteryzowała się doskonałym sąsiedztwem i przyjazną atmosferą, co czyniło to miejsce idealnym do zamieszkania dla rodzin z dziećmi.</p>
-  
-  <p>Domy zostały wybudowane z najwyższej klasy materiałów, co gwarantuje trwałość, energooszczędność oraz nowoczesny wygląd na lata. Projekt został starannie przemyślany, aby zapewnić funkcjonalny rozkład pomieszczeń na powierzchni użytkowej prawie 140 m².</p>
-  
-  <p>Do dyspozycji mieszkańców był garaż w bryle budynku oraz dodatkowe miejsce postojowe przed domem.</p>`,
-  
-  // Podstawowe dane (szybki podgląd) - BEZ CEN
-  quickDetails: {
-    "Lokalizacja": "ul. Żyzna, Krzekowo, Szczecin",
-    "Rok realizacji": "2026",
-    "Powierzchnia użytkowa": "137,13 m²",
-    "Powierzchnia działki": "300 m²",
-    "Liczba pokoi": "5",
-    "Rodzaj zabudowy": "dom bliźniak (segment)",
-    "Status": "zrealizowana / sprzedana"
-  },
-  
-  // Opis pomieszczeń (parter) - te same co w Inwestycji 1
-  roomsGround: [
-    { name: "Wiatrołap", area: "5,75 m²", description: "Wejście do domu prowadzi przez przestronny wiatrołap, który zapewnia miejsce na szafę lub zabudowę na odzież wierzchnią i obuwie. Chroni wnętrze przed utratą ciepła." },
-    { name: "Kuchnia", area: "9,15 m²", description: "Funkcjonalna, z bezpośrednim dostępem do strefy dziennej. Układ kuchni umożliwia montaż zarówno zabudowy w kształcie litery 'L', jak i wyspy kuchennej." },
-    { name: "Salon z jadalnią", area: "22,56 m²", description: "Przestrzeń dzienna jest otwarta, jasna i ustawna. Dzięki połączeniu z kuchnią tworzy dużą, komfortową strefę sprzyjającą spędzaniu czasu z rodziną i przyjmowaniu gości." },
-    { name: "Łazienka", area: "4,11 m²", description: "Niewielka, lecz w pełni funkcjonalna, z prysznicem i toaletą." },
-    { name: "Pomieszczenie gospodarcze", area: "8,13 m²", description: "Idealne na pralnię, kotłownię lub przechowywanie sprzętów domowych i ogrodowych." },
-    { name: "Komunikacja", area: "4,82 m²", description: "Dobrze zaplanowana, łącząca wszystkie pomieszczenia w spójną całość." },
-    { name: "Garaż", area: "15,43 m²", description: "Jednostanowiskowy, z wygodnym dojazdem i przejściem bezpośrednio do części mieszkalnej." }
-  ],
-  
-  // Zalety układu (te same co w Inwestycji 1)
-  advantages: [
-    "Otwarta przestrzeń dzienna – połączenie kuchni, jadalni i salonu daje poczucie przestronności i pozwala na elastyczną aranżację wnętrza.",
-    "Dodatkowa toaleta dostępna od strony ogrodu – świetne rozwiązanie szczególnie w sezonie letnim, gdy domownicy spędzają czas w ogrodzie lub na tarasie.",
-    "Duże możliwości aranżacyjne – salon i jadalnia są ustawne, co pozwala na dowolne rozmieszczenie mebli.",
-    "Praktyczne pomieszczenie gospodarcze – miejsce na sprzęty, które inaczej zajmowałyby przestrzeń w domu.",
-    "Bezpośrednie przejście z garażu do domu – wygodne zwłaszcza przy złej pogodzie.",
-    "Funkcjonalny wiatrołap – zapewnia izolację termiczną i miejsce do przechowywania."
-  ],
-  
-  // Standard wykończenia (pogrupowany) - te same co w Inwestycji 1
-  standards: [
-    { category: "Fundamenty i konstrukcja", items: [
-      "Ławy i stopy żelbetowe monolityczne",
-      "Ściany fundamentowe z bloczków betonowych",
-      "Ściany konstrukcyjne - bloczki wapienno-piaskowe 18cm",
-      "Strop żelbetowy monolityczny",
-      "Schody żelbetowe monolityczne"
-    ]},
-    { category: "Izolacje i termoizolacja", items: [
-      "Izolacja przeciwwilgociowa ścian fundamentowych KMB",
-      "Termoizolacja ścian fundamentowych EPS hydrofobowy",
-      "Elewacja EPS 20cm, na ścianach skrajnych wełna 20cm",
-      "Tynk elewacyjny silikonowy + lamele (alu lub kompozyt)"
-    ]},
-    { category: "Dach i wykończenie zewnętrzne", items: [
-      "Konstrukcja dachu - prefabrykowane wiązary dachowe przygotowane pod instalację PV",
-      "Dach pokryty dachówką ceramiczną lub betonową",
-      "Rynny i rury spustowe stalowe",
-      "Podbitka z płyt kompozytowych na ruszcie aluminiowym",
-      "Daszek przed wejściem z płyt kompozytowych na ruszcie aluminiowym"
-    ]},
-    { category: "Okna i stolarka", items: [
-      "Okna PCV, HST aluminiowe",
-      "Brama garażowa segmentowa",
-      "Żaluzje fasadowe we wszystkich oknach, sterowanie radiowe"
-    ]},
-    { category: "Instalacje", items: [
-      "Kanalizacja sanitarna i woda miejska",
-      "Instalacja kanalizacji deszczowej ze zbiornikiem bezodpływowym",
-      "Przyłącze energetyczne i gazowe",
-      "Instalacja wod-kan wraz z cyrkulacją",
-      "Ogrzewanie podłogowe we wszystkich pomieszczeniach",
-      "Podejścia pod grzejniki drabinkowe w łazienkach",
-      "Instalacja elektryczna wraz z białym osprzętem",
-      "Instalacja alarmowa (bez aktywnego osprzętu)",
-      "Przepust pod światłowód",
-      "Kocioł gazowy kondensacyjny jednofunkcyjny z zasobnikiem",
-      "Instalacja wentylacji mechanicznej z wymiennikiem ciepła",
-      "Instalacja klimatyzacji (bez jednostek)"
-    ]},
-    { category: "Wykończenie wnętrz", items: [
-      "Ściany piętra - podwójne GK lub murowane z bloczków wapienno-piaskowych",
-      "Tynki gipsowe",
-      "Na piętrze sufit podwieszany, izolacja stropu nad piętrem wełna mineralna"
-    ]},
-    { category: "Otoczenie", items: [
-      "Ogrodzenie panelowe z siatek zgrzewanych",
-      "Utwardzenia z kostki betonowej na podbudowie z kruszywa",
-      "Teren wyrównany, niezagospodarowany"
-    ]}
-  ],
-  
-  // Wymiary (te same co w Inwestycji 1)
-  dimensions: {
-    "Wysokość parteru": "295 cm",
-    "Wysokość piętra": "265 cm"
-  },
-  
-  // Galerie
-  gallery: [
-    "assets/inwestycje/inwestycja1/1.webp",
-    "assets/inwestycje/inwestycja1/2.webp",
-    "assets/inwestycje/inwestycja1/3.webp",
-    "assets/inwestycje/inwestycja1/4.webp",
-    "assets/inwestycje/inwestycja1/5.webp",
-    "assets/inwestycje/inwestycja1/6.webp"
-  ],
-  
-  floorPlans: [
-    "assets/inwestycje/inwestycja1/rzut1.webp",
-    "assets/inwestycje/inwestycja1/rzut2.webp",
-    "assets/inwestycje/inwestycja1/rzut3.webp",
-    "assets/inwestycje/inwestycja1/rzut4.webp"
-  ],
-  
-  mapEmbed: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2375.892274398322!2d14.478129448715602!3d53.45251191716858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNTPCsDI3JzA5LjAiTiAxNMKwMjgnNDcuNyJF!5e0!3m2!1spl!2snl!4v1772274054624!5m2!1spl!2snl",
-};
-
-// Funkcja pokazująca szczegóły dla inwestycji zrealizowanej
-function showCompletedDetails() {
-  console.log("🟢 Funkcja showCompletedDetails wywołana");
-  
-  const inv = completedInvestment;
-  
-  // Sprawdź czy modal istnieje
-  const modalElement = document.getElementById('investmentModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalBody = document.getElementById('modalBody');
-  
-  if (!modalElement) {
-    console.error("🔴 Nie znaleziono elementu modal!");
-    return;
-  }
-  
-  if (!modalTitle || !modalBody) {
-    console.error("🔴 Nie znaleziono elementów tytułu lub treści modala!");
-    return;
-  }
-  
-  console.log("✅ Znaleziono elementy modala");
-  
-  // Dla zrealizowanej inwestycji - brak tabeli ofert (bez cen i segmentów)
-  let noOffersMessage = `
-    <div class="alert alert-secondary mt-4">
-      <i class="fas fa-check-circle me-2"></i> Inwestycja została zrealizowana w 2026 roku. Wszystkie segmenty zostały sprzedane.
-    </div>
-  `;
-  
-  // Szybkie dane (bez cen)
-  let quickTable = '<h6 class="mt-4">Informacje o inwestycji</h6><table class="table table-striped">';
-  for (const [key, value] of Object.entries(inv.quickDetails)) {
-    quickTable += `<tr><th style="width: 35%">${key}:</th><td>${value}</td></tr>`;
-  }
-  quickTable += '</table>';
-  
-  // Wymiary
-  let dimensionsTable = '<h6 class="mt-4">Wymiary pomieszczeń</h6><table class="table table-striped">';
-  for (const [key, value] of Object.entries(inv.dimensions)) {
-    dimensionsTable += `<tr><th style="width: 35%">${key}:</th><td>${value}</td></tr>`;
-  }
-  dimensionsTable += '</table>';
-  
-  // Opis pomieszczeń (parter)
-  let roomsTable = '<h6 class="mt-4">Pomieszczenia na parterze</h6><table class="table table-striped">';
-  roomsTable += '<thead><tr><th>Pomieszczenie</th><th>Pow.</th><th>Opis</th></tr></thead><tbody>';
-  inv.roomsGround.forEach(room => {
-    roomsTable += `<tr><td><strong>${room.name}</strong></td><td>${room.area}</td><td>${room.description}</td></tr>`;
-  });
-  roomsTable += '</tbody></table>';
-  
-  // Zalety
-  let advantages = '<h6 class="mt-4">Zalety układu</h6><ul class="list-group">';
-  inv.advantages.forEach(adv => {
-    advantages += `<li class="list-group-item"><i class="fas fa-check text-success me-2"></i>${adv}</li>`;
-  });
-  advantages += '</ul>';
-  
-  // Standard wykończenia (akordeon)
-  let standardHtml = `
-    <h6 class="mt-4">Standard wykończenia</h6>
-    <style>
-      .accordion-button {
-        transition: all 0.3s ease;
-      }
-      
-      .accordion-button:not(.collapsed) {
-        background: linear-gradient(135deg, #6c757d, #495057);
-        color: white;
-      }
-      
-      .accordion-button.collapsed {
-        background: #f8f9fa;
-        color: #495057;
-      }
-      
-      .accordion-button::after {
-        transition: transform 0.4s ease;
-      }
-      
-      .accordion-collapse {
-        transition: all 0.4s ease;
-      }
-      
-      .accordion-item {
-        border: none;
-        margin-bottom: 12px;
-        border-radius: 12px !important;
-        overflow: hidden;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-      }
-      
-      .standard-list-item {
-        padding: 8px 12px;
-        margin: 4px 0;
-        background: white;
-        border-radius: 8px;
-        border-left: 3px solid #6c757d;
-      }
-    </style>
-    <div class="accordion" id="standardAccordion">
-  `;
-  
-  inv.standards.forEach((category, index) => {
-    const collapseId = `collapseCompleted${index}`;
-    const headingId = `headingCompleted${index}`;
-    
-    standardHtml += `
+    accordionItems += `
       <div class="accordion-item">
         <h2 class="accordion-header" id="${headingId}">
-          <button class="accordion-button ${index > 0 ? 'collapsed' : ''}" 
-                  type="button" 
-                  data-bs-toggle="collapse" 
+          <button class="accordion-button ${isFirst ? "" : "collapsed"}"
+                  type="button"
+                  data-bs-toggle="collapse"
                   data-bs-target="#${collapseId}"
-                  aria-expanded="${index === 0 ? 'true' : 'false'}">
-            <i class="fas fa-circle me-2" style="font-size: 0.6rem;"></i>
-            ${category.category}
-            <span class="badge bg-light text-dark ms-2">${category.items.length}</span>
+                  aria-expanded="${isFirst}"
+                  aria-controls="${collapseId}">
+            <i class="fas fa-circle me-2" style="font-size:0.6rem;"></i>
+            ${cat.category}
+            <span class="badge bg-light text-dark ms-2">${cat.items.length}</span>
           </button>
         </h2>
-        <div id="${collapseId}" 
-             class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
-             data-bs-parent="#standardAccordion">
+        <div id="${collapseId}"
+             class="accordion-collapse collapse ${isFirst ? "show" : ""}"
+             aria-labelledby="${headingId}">
           <div class="accordion-body">
-            <ul class="list-unstyled mb-0">
-    `;
-    
-    category.items.forEach(item => {
-      standardHtml += `
-        <li class="standard-list-item">
-          <i class="fas fa-check-circle me-2" style="color: #6c757d;"></i>
-          ${item}
-        </li>
-      `;
+            <ul class="list-unstyled mb-0">${listItems}</ul>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  const accordionId = `standardAccordion-${inv.id}`;
+
+  // -- Galeria --
+  let galleryHtml = "";
+  if (inv.gallery && inv.gallery.length) {
+    const imgs = inv.gallery.map(src =>
+      `<img src="${src}" onclick="window.open(this.src)" alt="Zdjęcie inwestycji">`
+    ).join("");
+    galleryHtml = `<h6 class="mt-4">Galeria zdjęć</h6><div class="modal-gallery">${imgs}</div>`;
+  }
+
+  // -- Rzuty --
+  let plansHtml = "";
+  if (inv.floorPlans && inv.floorPlans.length) {
+    const imgs = inv.floorPlans.map(src =>
+      `<img src="${src}" onclick="window.open(this.src)" alt="Rzut">`
+    ).join("");
+    plansHtml = `<h6 class="mt-4">Rzuty</h6><div class="modal-gallery">${imgs}</div>`;
+  }
+
+  // -- Mapa --
+  const mapHtml = inv.mapEmbed
+    ? `<iframe class="modal-map" src="${inv.mapEmbed}" loading="lazy" title="Mapa lokalizacji"></iframe>`
+    : "";
+
+  // -- Przyciski CTA --
+  let ctaHtml = "";
+  if (!isCompleted) {
+    if (inv.pdf)    ctaHtml += `<a href="${inv.pdf}" class="btn btn-primary me-2" target="_blank"><i class="fas fa-download"></i> Pobierz prospekt PDF</a>`;
+    if (inv.otodom) ctaHtml += `<a href="${inv.otodom}" class="btn btn-outline-warning" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Otodom</a>`;
+  } else {
+    ctaHtml = `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Zamknij</button>`;
+  }
+
+  return `
+    <div class="investment-details">
+      <div class="lead">${inv.description}</div>
+      ${offersSection}
+      <h6 class="mt-4">Podstawowe informacje</h6>
+      <table class="table table-striped"><tbody>${quickRows}</tbody></table>
+      <h6 class="mt-4">Wymiary pomieszczeń</h6>
+      <table class="table table-striped"><tbody>${dimRows}</tbody></table>
+      <h6 class="mt-4">Pomieszczenia na parterze</h6>
+      <table class="table table-striped">
+        <thead><tr><th>Pomieszczenie</th><th>Pow.</th><th>Opis</th></tr></thead>
+        <tbody>${roomRows}</tbody>
+      </table>
+      <h6 class="mt-4">Zalety układu</h6>
+      <ul class="list-group">${advantageItems}</ul>
+      <h6 class="mt-4">Standard wykończenia</h6>
+      <div class="accordion" id="${accordionId}">${accordionItems}</div>
+      ${galleryHtml}
+      ${plansHtml}
+      ${mapHtml}
+      <div class="text-center mt-4">${ctaHtml}</div>
+    </div>`;
+}
+
+// ===== PUBLICZNA FUNKCJA WYWOŁYWANA Z onclick W HTML =====
+function showInvestmentDetails(index) {
+  const inv = investments[index];
+  if (!inv) {
+    console.error("Brak inwestycji o indeksie:", index);
+    return;
+  }
+
+  // Poprawka błędu nr 3: Bootstrap jest defer – czekamy jeśli jeszcze się nie załadował
+  if (typeof bootstrap === "undefined") {
+    console.warn("Bootstrap nie gotowy, ponawiam za 200ms...");
+    setTimeout(() => showInvestmentDetails(index), 200);
+    return;
+  }
+
+  const modalElement = document.getElementById("investmentModal");
+  const modalTitle   = document.getElementById("modalTitle");
+  const modalBody    = document.getElementById("modalBody");
+
+  if (!modalElement || !modalTitle || !modalBody) {
+    console.error("Brak elementów modala w DOM.");
+    return;
+  }
+
+  modalTitle.textContent = inv.title;
+  modalBody.innerHTML    = buildModalContent(inv);
+
+  const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+  modal.show();
+
+  if (typeof AOS !== "undefined") {
+    setTimeout(() => AOS.refresh(), 500);
+  }
+}
+
+
+// ===== JEDEN DOMContentLoaded =====
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  // AOS
+  AOS.init({ duration: 800, easing: "ease-in-out", once: true, mirror: false, offset: 50 });
+
+  // Navbar scroll
+  const navbar = document.getElementById("mainNav");
+  let ticking = false;
+  window.addEventListener("scroll", function () {
+    if (!ticking) {
+      window.requestAnimationFrame(function () {
+        navbar.classList.toggle("scrolled", window.scrollY > 50);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Hamburger menu
+  const navbarCollapse = document.getElementById("navbarNav");
+  const navbarToggler  = document.querySelector(".navbar-toggler");
+
+  if (navbarCollapse) {
+    const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse, { toggle: false });
+
+    navbarCollapse.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", () => {
+        if (navbarCollapse.classList.contains("show")) bsCollapse.hide();
+      });
     });
-    
-    standardHtml += `
-            </ul>
+
+    document.addEventListener("click", function (e) {
+      if (navbarCollapse.contains(e.target)) return;
+      if (navbarToggler && navbarToggler.contains(e.target)) return;
+      if (e.target.closest("#cookiePopup")) return;
+      if (navbarCollapse.classList.contains("show")) bsCollapse.hide();
+    });
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  // Weryfikacja modala przy starcie
+  if (!document.getElementById("investmentModal")) {
+    console.warn("Modal #investmentModal nie istnieje w DOM.");
+  }
+});
+
+
+// ===== COOKIES =====
+
+function openCookiePopup() {
+  const popup = document.getElementById("cookiePopup");
+  if (popup) { popup.style.display = "flex"; document.body.style.overflow = "hidden"; }
+}
+
+function closeCookiePopup() {
+  const popup = document.getElementById("cookiePopup");
+  if (popup) { popup.style.display = "none"; document.body.style.overflow = "auto"; }
+}
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") closeCookiePopup();
+});
+</script>
+      
+<!-- MODAL (okno) ze szczegółami inwestycji -->
+<div class="modal fade" id="investmentModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Szczegóły inwestycji</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body" id="modalBody">
+            <!-- Treść będzie ładowana dynamicznie -->
           </div>
         </div>
       </div>
-    `;
-  });
-  
-  standardHtml += '</div>';
-  
-  // Galeria zdjęć
-  let gallery = '';
-  if (inv.gallery.length > 0) {
-    gallery = '<h6 class="mt-4">Galeria zdjęć</h6><div class="modal-gallery">';
-    inv.gallery.forEach(img => {
-      gallery += `<img src="${img}" onclick="window.open(this.src)" alt="Zdjęcie inwestycji">`;
-    });
-    gallery += '</div>';
-  }
-  
-  // Rzuty
-  let floorPlans = '';
-  if (inv.floorPlans.length > 0) {
-    floorPlans = '<h6 class="mt-4">Rzuty</h6><div class="modal-gallery">';
-    inv.floorPlans.forEach(img => {
-      floorPlans += `<img src="${img}" onclick="window.open(this.src)" alt="Rzut">`;
-    });
-    floorPlans += '</div>';
-  }
-  
-  // Mapa
-  const map = inv.mapEmbed ? `<iframe class="modal-map" src="${inv.mapEmbed}" loading="lazy" title="Mapa lokalizacji"></iframe>` : '';
-
-  // Brak linków do PDF i Otodom - tylko przycisk zamknięcia
-  const closeButton = `<button type="button" class="btn btn-secondary mt-3" data-bs-dismiss="modal"><i class="fas fa-times"></i> Zamknij</button>`;
-  
-  // Złożenie treści
-  const content = `
-    <div class="investment-details">
-      <p class="lead">${inv.description}</p>
-      
-      ${noOffersMessage}
-      ${quickTable}
-      ${dimensionsTable}
-      ${roomsTable}
-      ${advantages}
-      ${standardHtml}
-      ${gallery}
-      ${floorPlans}
-      ${map}
-      <div class="text-center mt-4">
-        ${closeButton}
-      </div>
     </div>
-  `;
-  
-  // Ustawienie tytułu i treści
-  modalTitle.textContent = inv.title;
-  modalBody.innerHTML = content;
-  
-  console.log("✅ Treść modala dla inwestycji zrealizowanej ustawiona");
-  
-  // Pokaż modal
-  try {
-    if (typeof bootstrap === 'undefined') {
-      console.error("🔴 Bootstrap nie jest załadowany!");
-      return;
-    }
-    
-    const modal = new bootstrap.Modal(modalElement);
-    modal.show();
-    
-    // Odśwież AOS dla nowych elementów
-    if (typeof AOS !== 'undefined') {
-      setTimeout(() => AOS.refresh(), 500);
-    }
-  } catch (error) {
-    console.error("🔴 Błąd podczas pokazywania modala:", error);
-  }
-}
-</script>
+      
 </body>
 </html>

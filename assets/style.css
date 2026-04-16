@@ -545,12 +545,8 @@ a:active {
     background-color: #e67e22;
     color: white;
     border-color: #e67e22;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
-}
-
-.btn-outline-warning:hover {
     transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
 }
 
 /* Przycisk Pobierz prospekt PDF */
