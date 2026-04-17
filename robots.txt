@@ -1,9 +1,2 @@
 User-agent: *
-
-# Blokada panelu administracyjnego
-Disallow: /admin/
-Disallow: /panel/
-Disallow: /login/
-
-# Sitemap
 Sitemap: https://roder.com.pl/sitemap.xml
