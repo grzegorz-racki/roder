@@ -621,11 +621,12 @@ a:active {
 /* =========================== FOOTER =========================== */
 .footer {
     padding: 20px 0;
-    background: linear-gradient(135deg, #f4f6f8 0%, #e9ecef 100%);
+    background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
     font-size: 14px;
     text-align: center;
     position: relative;
     overflow: hidden;
+    margin-bottom: -30px;
 }
 
 .footer::before {
