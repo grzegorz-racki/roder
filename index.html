@@ -547,32 +547,37 @@ function buildModalContent(inv) {
       const badgeText  = isSold ? "SPRZEDANY"  : isReserved ? "REZERWACJA"    : "DOSTĘPNY";
       const priceClass = isSold ? "price-sold" : "";
 
-      rows += `
-        <tr class="${rowClass}">
-          <td>
-            <span class="badge-container">
-              <strong>Segment ${offer.segment}</strong>
-              <span class="status-badge ${badgeClass}">${badgeText}</span>
-            </span>
-          </td>
-          <td>${offer.powierzchnia}</td>
-          <td>${offer.dzialka}</td>
-          <td>${offer.cena_za_m2}</td>
-          <td class="${priceClass}"><strong>${offer.cena}</strong></td>
-        </tr>`;
+        rows += `
+          <tr class="${rowClass}">
+            <td data-label="Segment">
+              <span class="badge-container">
+                <strong>Segment ${offer.segment}</strong>
+                <span class="status-badge ${badgeClass}">${badgeText}</span>
+              </span>
+            </td>
+            <td data-label="Pow. użytkowa">${offer.powierzchnia}</td>
+            <td data-label="Działka">${offer.dzialka}</td>
+            <td data-label="Cena za m²">${offer.cena_za_m2}</td>
+            <td data-label="Cena całkowita" class="${priceClass}"><strong>${offer.cena}</strong></td>
+          </tr>`;
     });
 
-    offersSection = `
-      <h6 class="mt-4">Dostępne segmenty</h6>
-      <table class="table table-bordered table-striped table-offers">
-        <thead class="table-dark">
-          <tr>
-            <th>Segment</th><th>Pow. użytkowa</th>
-            <th>Działka</th><th>Cena za m²</th><th>Cena całkowita</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>`;
+        offersSection = `
+          <h6 class="mt-4">Dostępne segmenty</h6>
+          <div class="table-offers-wrapper">
+            <table class="table table-bordered table-striped table-offers">
+              <thead class="table-dark">
+                <tr>
+                  <th>Segment</th>
+                  <th>Pow. użytkowa</th>
+                  <th>Działka</th>
+                  <th>Cena za m²</th>
+                  <th>Cena całkowita</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>`;
   }
 
   if (isCompleted) {

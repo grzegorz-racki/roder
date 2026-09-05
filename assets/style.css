@@ -429,7 +429,7 @@ a:active {
     color: var(--text-dark);
 }
 
-/* =========================== STATUSY DLA SEGMENTÓW - POPRAWIONE =========================== */
+/* =========================== STATUSY DLA SEGMENTÓW =========================== */
 
 /* Animacja pulsowania dla wszystkich statusów */
 @keyframes statusPulse {
@@ -530,6 +530,66 @@ a:active {
 .available-text {
     color: #28a745;
     font-weight: 600;
+}
+
+/* TABELA SEGMENTÓW – RESPONSIVE */
+/* Wrapper – zapobiega wychodzeniu poza ekran */
+.table-offers-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+
+    /* Ukryj nagłówki tabeli */
+    .table-offers thead {
+        display: none;
+    }
+
+    /* Każdy wiersz = osobna karta */
+    .table-offers tbody tr {
+        display: block;
+        margin-bottom: 16px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    /* Każda komórka = pełna szerokość z etykietą */
+    .table-offers tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+        text-decoration: none !important;
+    }
+
+    /* Etykieta z atrybutu data-label */
+    .table-offers tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #444;
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+
+    /* Ostatnia komórka bez border */
+    .table-offers tbody td:last-child {
+        border-bottom: none;
+    }
+
+    /* Przekreślenie dla sprzedanych – przywróć na td */
+    .sold-row td {
+        text-decoration: none !important;
+    }
+
+    .sold-row td:last-child strong {
+        text-decoration: line-through;
+        text-decoration-color: #dc3545;
+        color: #6c757d;
+    }
 }
 
 /* =========================== PRZYCISKI =========================== */
