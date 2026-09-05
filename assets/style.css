@@ -547,6 +547,15 @@ a:active {
         display: none;
     }
 
+    /* Ukryj ramkę tabeli – karty wyglądają samodzielnie */
+    .table-offers {
+        border: none !important;
+    }
+
+    .table-offers tbody {
+        border: none !important;
+    }
+
     /* Każdy wiersz = osobna karta */
     .table-offers tbody tr {
         display: block;
@@ -554,6 +563,7 @@ a:active {
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        border: none !important;
     }
 
     /* Każda komórka = pełna szerokość z etykietą */
