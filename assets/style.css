@@ -453,10 +453,14 @@ a:active {
 }
 
 .sold-row td {
+    color: #6c757d;
+}
+
+.sold-row td:first-child,
+.sold-row td:last-child {
     text-decoration-line: line-through !important;
     text-decoration-color: #dc3545 !important;
     text-decoration-thickness: 2px !important;
-    color: #6c757d;
 }
 
 .sold-row td strong {
